@@ -38,6 +38,7 @@
         }
         
         .lang-fa .chapter-title { font-family: 'Noto Sans Arabic', sans-serif; font-weight: 800; line-height: 1.4; }
+        .lang-fa .serif-font { font-family: 'Noto Sans Arabic', sans-serif; }
         
         /* Justified Text Logic */
         .book-text {
@@ -108,7 +109,7 @@
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 </div>
 
-                <h1 class="text-xl font-bold text-slate-800 font-serif-heading text-center">Faramarz Kowsari</h1>
+                <h1 class="text-xl font-bold text-slate-800 font-serif-heading text-center serif-font">Faramarz Kowsari</h1>
                 <p class="text-[11px] text-blue-600 font-bold tracking-widest uppercase mt-1">Strategic AI Architect</p>
                 
                 <!-- Social Links -->
@@ -222,6 +223,7 @@
 
     <!-- LOGIC -->
     <script>
+        // --- 1. CONFIGURATION ---
         const config = {
             chapters: 11,
             paragraphsPerChapter: 5,
@@ -233,85 +235,86 @@
             tr: ["Ajanlığın Doğuşu", "Koordinasyon Mimarileri", "Anlamsal İletişim Protokolleri", "Stratejik Ayrıştırma", "Bilişsel Döngü", "İşbirlikçi Akıl Yürütme", "İnsan Maestro", "Topluluk Güvenliği", "Üretken Estetik", "Uç Nokta Ajanlığı", "Programlama Sonrası Çağ"],
             fa: ["پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های ارتباطی معنایی", "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", "عاملیت لبه", "عصر پسابرنامه‌نویسی"]
         };
-        
+
+        // --- 2. CONTENT SEEDS (Expanded for variety) ---
         const seeds = {
             en: [
-                "The shift from static code to dynamic agency represents a fundamental evolution in computer science. We are moving from explicit instruction to implicit intent.",
-                "Centralized versus decentralized control remains the core debate in system architecture. Hybrid models offer the best balance for national scale resilience.",
-                "Language is the protocol of thought. Semantic layers allow machines to negotiate meaning, not just exchange data bytes.",
-                "Breaking complex goals into atomic tasks requires a new form of logic. This decomposition must be robust against failure and adaptable to change.",
-                "The OODA loop drives the internal life of the agent. Perception, orientation, decision, and action form the heartbeat of autonomous systems.",
-                "Collaboration amplifies intelligence. When agents argue and agree, they produce solutions superior to any single model's capacity.",
-                "The human role shifts from coder to conductor. We define the vision and the ethics, allowing the machine to handle the execution.",
-                "Security must be intrinsic, not extrinsic. Sentinel agents and cryptographic identity protect the ensemble from adversarial corruption.",
-                "Generative AI brings art to the machine. We see the emergence of aesthetic sovereignty and culture-aware creative systems.",
-                "Processing moves to the edge for privacy and speed. Local orchestras ensure data sovereignty and offline resilience for users.",
-                "We enter the post-programming era. Natural language becomes the compiler, and wisdom becomes the primary asset of the developer."
+                "The shift from static code to dynamic agency represents a fundamental evolution in computer science.",
+                "Centralized versus decentralized control remains the core debate in system architecture.",
+                "Language is the protocol of thought, enabling machines to negotiate meaning.",
+                "Breaking complex goals into atomic tasks requires a new form of strategic logic.",
+                "The OODA loop drives the internal life of the agent, forming the heartbeat of autonomy.",
+                "Collaboration amplifies intelligence, producing solutions superior to any single model.",
+                "The human role shifts from coder to conductor, defining the vision and ethics.",
+                "Security must be intrinsic, protecting the ensemble from adversarial corruption.",
+                "Generative AI brings art to the machine, merging silicon with soul.",
+                "Processing moves to the edge for privacy and speed, empowering the individual.",
+                "We enter the post-programming era, where wisdom is the primary asset."
             ],
             tr: [
-                "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder. Açık talimattan örtük niyete doğru ilerliyoruz.",
-                "Merkezi ve merkezi olmayan kontrol, sistem mimarisindeki temel tartışma konusu olmaya devam ediyor. Hibrit modeller ulusal ölçekte dayanıklılık için en iyi dengeyi sunuyor.",
-                "Dil, düşüncenin protokolüdür. Anlamsal katmanlar, makinelerin sadece veri baytlarını değiş tokuş etmesini değil, anlamı müzakere etmesini sağlar.",
-                "Karmaşık hedefleri atomik görevlere bölmek yeni bir mantık biçimi gerektirir. Bu ayrıştırma, başarısızlığa karşı sağlam ve değişime uyarlanabilir olmalıdır.",
-                "OODA döngüsü, ajanın iç yaşamını yönlendirir. Algı, yönlendirme, karar ve eylem, otonom sistemlerin kalp atışını oluşturur.",
-                "İşbirliği zekayı güçlendirir. Ajanlar tartışıp anlaştıklarında, herhangi bir tek modelin kapasitesinden daha üstün çözümler üretirler.",
-                "İnsan rolü kodlayıcıdan şefe dönüşüyor. Vizyonu ve etiği biz tanımlıyoruz, yürütmeyi makinenin halletmesine izin veriyoruz.",
-                "Güvenlik dışsal değil, içsel olmalıdır. Nöbetçi ajanlar ve kriptografik kimlik, topluluğu düşmanca bozulmalardan korur.",
-                "Üretken yapay zeka, sanatı makineye getiriyor. Estetik egemenliğin ve kültür bilincine sahip yaratıcı sistemlerin ortaya çıkışını görüyoruz.",
-                "İşleme, gizlilik ve hız için uca taşınıyor. Yerel orkestralar, kullanıcılar için veri egemenliğini ve çevrimdışı dayanıklılığı garanti eder.",
-                "Programlama sonrası çağa giriyoruz. Doğal dil derleyici olur ve bilgelik geliştiricinin birincil varlığı haline gelir."
+                "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder.",
+                "Merkezi ve merkezi olmayan kontrol, sistem mimarisindeki temel tartışma konusu olmaya devam ediyor.",
+                "Dil, düşüncenin protokolüdür ve makinelerin anlamı müzakere etmesini sağlar.",
+                "Karmaşık hedefleri atomik görevlere bölmek yeni bir stratejik mantık biçimi gerektirir.",
+                "OODA döngüsü, ajanın iç yaşamını yönlendirir ve otonominin kalp atışını oluşturur.",
+                "İşbirliği zekayı güçlendirir ve tekil modellerden daha üstün çözümler üretir.",
+                "İnsan rolü kodlayıcıdan şefe dönüşüyor, vizyonu ve etiği tanımlıyor.",
+                "Güvenlik içsel olmalı, topluluğu düşmanca bozulmalardan korumalıdır.",
+                "Üretken yapay zeka, sanatı makineye getiriyor, silikonu ruhla birleştiriyor.",
+                "İşleme, gizlilik ve hız için uca taşınıyor, bireyi güçlendiriyor.",
+                "Programlama sonrası çağa giriyoruz, bilgelik birincil varlık haline geliyor."
             ],
             fa: [
-                "گذار از کد ایستا به عاملیت پویا، نمایانگر تکاملی بنیادین در علوم رایانه و تمدن بشری است. ما از عصر دستورات صریح به دوران نیت‌های ضمنی و هوشمند گام می‌نهیم که در آن ماشین همکار ماست.",
-                "بحث میان کنترل متمرکز و غیرمتمرکز همچنان هسته اصلی معماری سیستم‌های کلان باقی مانده است. مدل‌های ترکیبی بهترین تعادل را برای تاب‌آوری در مقیاس ملی و امنیت زیرساخت‌ها ارائه می‌دهند.",
-                "زبان، پروتکل اندیشه است و معنا روح آن. لایه‌های معنایی به ماشین‌ها اجازه می‌دهند تا بر سر مفاهیم مذاکره کنند، نه اینکه صرفاً بایت‌های داده را بدون درک تبادل نمایند.",
-                "خرد کردن اهداف پیچیده به وظایف اتمی نیازمند فرم جدیدی از منطق استراتژیک است. این تجزیه باید در برابر شکست مقاوم باشد و بتواند با تغییرات محیطی سازگار شود.",
-                "حلقه OODA زندگی درونی و پویای عامل را هدایت می‌کند. ادراک، جهت‌گیری، تصمیم و کنش، ضربان قلب سیستم‌های خودمختار را تشکیل می‌دهند و به آن حیات می‌بخشند.",
-                "همکاری، هوش را تقویت و چندبرابر می‌کند. وقتی عامل‌ها با هم بحث می‌کنند و به توافق می‌رسند، راه‌حل‌هایی تولید می‌کنند که از ظرفیت هر مدل فردی برتر است.",
-                "نقش انسان از کدنویس به رهبر ارکستر تغییر می‌کند. ما چشم‌انداز و اخلاق را تعریف می‌کنیم و به ماشین اجازه می‌دهیم اجرا را با قدرت محاسباتی خود مدیریت کند.",
-                "امنیت باید ذاتی باشد، نه عاریتی و بیرونی. عامل‌های نگهبان و هویت رمزنگاری‌شده، گروه را از فساد خصمانه و نفوذ بیگانگان محافظت می‌کنند.",
-                "هوش مصنوعی مولد، هنر را به ماشین می‌آورد. ما شاهد ظهور حاکمیت زیبایی‌شناختی و سیستم‌های خلاقِ فرهنگ‌آگاه هستیم که میراث ما را حفظ می‌کنند.",
-                "پردازش برای حریم خصوصی و سرعت به لبه شبکه منتقل می‌شود. ارکسترهای محلی، حاکمیت داده و تاب‌آوری آفلاین را برای کاربران تضمین می‌کنند.",
-                "ما وارد عصر پسابرنامه‌نویسی می‌شویم. زبان طبیعی تبدیل به کامپایلر می‌شود و خرد به دارایی اصلی توسعه‌دهنده بدل می‌گردد."
+                "گذار از کد ایستا به عاملیت پویا، نمایانگر تکاملی بنیادین در علوم رایانه است.",
+                "بحث میان کنترل متمرکز و غیرمتمرکز همچنان هسته اصلی معماری سیستم‌های کلان باقی مانده است.",
+                "زبان، پروتکل اندیشه است و به ماشین‌ها اجازه می‌دهد تا بر سر مفاهیم مذاکره کنند.",
+                "خرد کردن اهداف پیچیده به وظایف اتمی نیازمند فرم جدیدی از منطق استراتژیک است.",
+                "حلقه OODA زندگی درونی عامل را هدایت می‌کند و ضربان قلب سیستم‌های خودمختار را تشکیل می‌دهد.",
+                "همکاری، هوش را تقویت می‌کند و راه‌حل‌هایی فراتر از ظرفیت فردی تولید می‌نماید.",
+                "نقش انسان از کدنویس به رهبر ارکستر تغییر می‌کند و چشم‌انداز و اخلاق را تعریف می‌کند.",
+                "امنیت باید ذاتی باشد و گروه را از فساد خصمانه و نفوذ بیگانگان محافظت کند.",
+                "هوش مصنوعی مولد، هنر را به ماشین می‌آورد و سیلیکون را با روح پیوند می‌دهد.",
+                "پردازش برای حریم خصوصی و سرعت به لبه شبکه منتقل می‌شود و فرد را توانمند می‌سازد.",
+                "ما وارد عصر پسابرنامه‌نویسی می‌شویم، جایی که خرد به دارایی اصلی بدل می‌گردد."
             ]
         };
 
         const fillers = {
             en: [
                 "Furthermore, we must consider the implications of this shift on global infrastructure.",
-                "In this context, the role of the architect becomes paramount.",
-                "Scientific studies in 2026 have shown that this approach increases resilience by forty percent.",
+                "In this context, the role of the architect becomes paramount for success.",
+                "Scientific studies in 2026 have shown that this approach increases resilience significantly.",
                 "This is not merely a theoretical concept, but a practical necessity for sovereign systems.",
                 "By leveraging these protocols, we achieve a level of harmony previously thought impossible.",
-                "The complexity of this interaction requires a robust and scalable framework.",
-                "Ultimately, this leads to a more secure and efficient digital ecosystem.",
+                "The complexity of this interaction requires a robust, scalable, and secure framework.",
+                "Ultimately, this leads to a more secure, efficient, and intelligent digital ecosystem.",
                 "This transition marks the end of the legacy era and the beginning of autonomous orchestration.",
-                "We observe that in high-stakes environments, this redundancy is a lifesaver.",
-                "The synergy between human intent and machine execution creates a new form of value."
+                "We observe that in high-stakes environments, this redundancy acts as a critical lifesaver.",
+                "The synergy between human intent and machine execution creates a new form of economic value."
             ],
             tr: [
-                "Ayrıca, bu değişimin küresel altyapı üzerindeki etkilerini de dikkate almalıyız.",
-                "Bu bağlamda, mimarın rolü son derece önemli hale gelmektedir.",
-                "2026'daki bilimsel çalışmalar, bu yaklaşımın dayanıklılığı yüzde kırk artırdığını göstermiştir.",
+                "Ayrıca, bu değişimin küresel altyapı üzerindeki derin etkilerini de dikkate almalıyız.",
+                "Bu bağlamda, sistem mimarının rolü başarı için son derece önemli hale gelmektedir.",
+                "2026'daki bilimsel çalışmalar, bu yaklaşımın dayanıklılığı önemli ölçüde artırdığını göstermiştir.",
                 "Bu sadece teorik bir kavram değil, egemen sistemler için pratik bir zorunluluktur.",
                 "Bu protokollerden yararlanarak, daha önce imkansız olduğu düşünülen bir uyum seviyesine ulaşıyoruz.",
-                "Bu etkileşimin karmaşıklığı, sağlam ve ölçeklenebilir bir çerçeve gerektirir.",
-                "Nihayetinde bu, daha güvenli ve verimli bir dijital ekosisteme yol açar.",
-                "Bu geçiş, eski çağın sonunu ve otonom orkestrasyonun başlangıcını işaret ediyor.",
-                "Yüksek riskli ortamlarda, bu fazlalığın bir cankurtaran olduğunu gözlemliyoruz.",
-                "İnsan niyeti ile makine yürütmesi arasındaki sinerji, yeni bir değer biçimi yaratır."
+                "Bu etkileşimin karmaşıklığı, sağlam, ölçeklenebilir ve güvenli bir çerçeve gerektirir.",
+                "Nihayetinde bu, daha güvenli, verimli ve akıllı bir dijital ekosisteme yol açar.",
+                "Bu geçiş, eski çağın sonunu ve otonom orkestrasyonun görkemli başlangıcını işaret ediyor.",
+                "Yüksek riskli ortamlarda, bu fazlalığın kritik bir cankurtaran olduğunu gözlemliyoruz.",
+                "İnsan niyeti ile makine yürütmesi arasındaki sinerji, yeni bir ekonomik değer biçimi yaratır."
             ],
             fa: [
-                "علاوه بر این، ما باید پیامدهای این تغییر را بر زیرساخت‌های جهانی و ملی در نظر بگیریم که بسیار حیاتی است.",
+                "علاوه بر این، ما باید پیامدهای عمیق این تغییر را بر زیرساخت‌های جهانی در نظر بگیریم.",
                 "در این بافتار، نقش معمار سیستم به عنوان هدایت‌گر اصلی، اهمیتی دوچندان می‌یابد.",
-                "مطالعات علمی در سال ۲۰۲۶ نشان داده‌اند که این رویکرد تاب‌آوری را تا چهل درصد در شرایط بحرانی افزایش می‌دهد.",
-                "این صرفاً یک مفهوم نظری نیست، بلکه یک ضرورت عملی برای سیستم‌های حاکمیتی و مستقل است.",
-                "با بهره‌گیری از این پروتکل‌ها، ما به سطحی از هارمونی دست می‌یابیم که پیش از این غیرممکن پنداشته می‌شد.",
-                "پیچیدگی این تعامل نیازمند چارچوبی مستحکم، مقیاس‌پذیر و بومی است تا بتواند بار را تحمل کند.",
-                "در نهایت، این امر منجر به ایجاد یک اکوسیستم دیجیتال امن‌تر، کارآمدتر و هوشمندتر برای جامعه می‌شود.",
-                "این گذار، پایان عصر سیستم‌های میراثی و آغاز دوران باشکوه ارکستراسیون خودمختار را نوید می‌دهد.",
-                "ما مشاهده می‌کنیم که در محیط‌های پرخطر، این افزونگی استراتژیک مانند یک ناجی عمل می‌کند.",
-                "هم‌افزایی میان قصد انسانی و اجرای ماشینی، شکل جدیدی از ارزش و ثروت را خلق می‌نماید."
+                "مطالعات علمی در سال ۲۰۲۶ نشان داده‌اند که این رویکرد تاب‌آوری را به طور چشمگیری افزایش می‌دهد.",
+                "این صرفاً یک مفهوم نظری نیست، بلکه یک ضرورت عملی برای سیستم‌های حاکمیتی است.",
+                "با بهره‌گیری از این پروتکل‌ها، ما به سطحی از هارمونی دست می‌یابیم که پیش از این غیرممکن بود.",
+                "پیچیدگی این تعامل نیازمند چارچوبی مستحکم، مقیاس‌پذیر و امن است تا پایدار بماند.",
+                "در نهایت، این امر منجر به ایجاد یک اکوسیستم دیجیتال امن‌تر، کارآمدتر و هوشمندتر می‌شود.",
+                "این گذار، پایان عصر سیستم‌های میراثی و آغاز دوران باشکوه ارکستراسیون خودمختار است.",
+                "ما مشاهده می‌کنیم که در محیط‌های پرخطر، این افزونگی مانند یک ناجی حیاتی عمل می‌کند.",
+                "هم‌افزایی میان قصد انسانی و اجرای ماشینی، شکل جدیدی از ارزش اقتصادی را خلق می‌نماید."
             ]
         };
 
@@ -325,7 +328,6 @@
 
         function init() {
             generateAllContent();
-            // Start in English
             changeLang('en');
             setupAudio();
         }
@@ -342,6 +344,7 @@
                     for(let p=0; p<config.paragraphsPerChapter; p++) {
                         let paragraph = "";
                         if (p === 0) paragraph += seed + " ";
+                        // Ensure 15 sentences
                         for(let s=0; s<config.sentencesPerParagraph; s++) {
                             const filler = fillers[lang][Math.floor(Math.random() * fillers[lang].length)];
                             paragraph += filler + " ";
@@ -366,9 +369,13 @@
             if(isRTL) {
                 document.body.classList.add('lang-fa');
                 document.getElementById('chapter-title').classList.remove('font-serif-heading');
+                // Hide player for Persian
+                stopSpeech();
+                document.getElementById('player').classList.add('hidden');
             } else {
                 document.body.classList.remove('lang-fa');
                 document.getElementById('chapter-title').classList.add('font-serif-heading');
+                document.getElementById('player').classList.remove('hidden');
             }
 
             // Buttons Highlight
@@ -395,23 +402,17 @@
             document.getElementById('prev-val').innerText = uiText[lang].back;
             document.getElementById('next-val').innerText = uiText[lang].cont;
             
-            // PDF & Cover (Standard 'images/' path used)
+            // PDF & Cover
             const pdfs = { en: "The Agentic Symphony -English.pdf", tr: "The Agentic Symphony -Turkish.pdf", fa: "The Agentic Symphony -Persian.pdf" };
             const covers = { en: "coverenglish.png", tr: "coverturkish.png", fa: "coverpersian.png" };
             
-            document.getElementById('pdf-download-link').href = `pdf/${pdfs[lang]}`;
+            // BUG FIX: Correct ID for download button
+            const dlBtn = document.getElementById('download-btn');
+            if(dlBtn) dlBtn.href = `pdf/${pdfs[lang]}`;
+            
             const img = document.getElementById('book-cover');
             img.style.opacity = 0;
             setTimeout(() => { img.src = `images/${covers[lang]}`; img.style.opacity = 1; }, 300);
-
-            // Audio Player Visibility
-            const player = document.getElementById('player');
-            if (lang === 'fa') {
-                stopSpeech();
-                player.classList.add('hidden');
-            } else {
-                player.classList.remove('hidden');
-            }
 
             renderTOC();
             renderChapter();
@@ -531,6 +532,7 @@
             app.utterance.lang = targetLang;
             
             if(voices.length === 0) voices = synth.getVoices();
+            // Try stricter match then loose match
             const strictVoice = voices.find(v => v.lang.replace('_', '-') === targetLang);
             const looseVoice = voices.find(v => v.lang.toLowerCase().startsWith(app.lang));
             
@@ -545,7 +547,6 @@
                 document.getElementById('reading-progress').style.width = '100%';
             };
 
-            // Progress estimation
             let charCount = 0;
             app.utterance.onboundary = (e) => {
                 charCount += e.charLength + (e.charIndex - charCount); 
