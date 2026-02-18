@@ -19,8 +19,8 @@
         :root {
             --primary: #2563eb;
             --secondary: #1e40af;
-            --glass-bg: rgba(255, 255, 255, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.8);
         }
 
         body {
@@ -48,8 +48,8 @@
         }
         
         .lang-fa .book-text { 
-            font-size: 1.2rem; 
-            line-height: 2.4; 
+            font-size: 1.15rem; 
+            line-height: 2.3; 
             text-align: justify;
         }
 
@@ -59,14 +59,14 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
 
         /* Animations */
-        .fade-enter { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .fade-enter { animation: fadeIn 0.5s ease-out forwards; }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -78,7 +78,6 @@
 
         /* RTL Specifics */
         .lang-fa .rtl-flip { transform: scaleX(-1); }
-        .lang-fa .ltr-only { display: none; }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-200 selection:text-blue-900">
@@ -105,7 +104,7 @@
 
                 <!-- Cover Image -->
                 <div class="w-36 h-56 mb-5 shadow-xl rounded-md overflow-hidden group relative transform transition hover:-translate-y-1 duration-500">
-                    <img id="book-cover" src="images/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover">
+                    <img id="book-cover" src="images/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover transition-opacity duration-300">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 </div>
 
@@ -172,14 +171,14 @@
                         </div>
                         <div class="text-left">
                             <div id="prev-lbl" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Previous</div>
-                            <div class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Back</div>
+                            <div id="prev-val" class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Back</div>
                         </div>
                     </button>
 
                     <button onclick="navChapter(1)" id="next-btn" class="group flex items-center px-4 py-3 rounded-xl hover:bg-slate-50 transition disabled:opacity-30 disabled:cursor-not-allowed">
                         <div class="text-right">
                             <div id="next-lbl" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Next</div>
-                            <div class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Next Chapter</div>
+                            <div id="next-val" class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Continue</div>
                         </div>
                         <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center ml-3 text-slate-400 group-hover:border-blue-400 group-hover:text-blue-500 transition rtl-flip shadow-sm">
                             <i class="fas fa-arrow-right text-xs"></i>
@@ -221,9 +220,8 @@
         </div>
     </div>
 
-    <!-- CONTENT GENERATION ENGINE -->
+    <!-- LOGIC -->
     <script>
-        // --- 1. CONFIGURATION ---
         const config = {
             chapters: 11,
             paragraphsPerChapter: 5,
@@ -235,9 +233,6 @@
             tr: ["Ajanlığın Doğuşu", "Koordinasyon Mimarileri", "Anlamsal İletişim Protokolleri", "Stratejik Ayrıştırma", "Bilişsel Döngü", "İşbirlikçi Akıl Yürütme", "İnsan Maestro", "Topluluk Güvenliği", "Üretken Estetik", "Uç Nokta Ajanlığı", "Programlama Sonrası Çağ"],
             fa: ["پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های ارتباطی معنایی", "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", "عاملیت لبه", "عصر پسابرنامه‌نویسی"]
         };
-
-        // --- 2. CONTENT SEEDS (The Core Ideas to Expand) ---
-        // These seeds are expanded by the engine to create the full length text.
         
         const seeds = {
             en: [
@@ -281,9 +276,6 @@
             ]
         };
 
-        // --- 3. TEXT GENERATION ENGINE (Expanders) ---
-        // These arrays provide variation to expand the seeds into full paragraphs.
-        
         const fillers = {
             en: [
                 "Furthermore, we must consider the implications of this shift on global infrastructure.",
@@ -323,20 +315,17 @@
             ]
         };
 
-        // --- 4. APP STATE ---
         const app = {
             lang: 'en',
             chapterIdx: 0,
-            contentCache: {}, // Store generated content
+            contentCache: {},
             speechRate: 1.0,
             utterance: null
         };
 
-        // --- 5. LOGIC ---
-
         function init() {
-            // Generate content for all languages on load
             generateAllContent();
+            // Start in English
             changeLang('en');
             setupAudio();
         }
@@ -350,16 +339,10 @@
                         id: idx + 1,
                         paragraphs: []
                     };
-                    
-                    // Generate 5 Paragraphs per chapter
                     for(let p=0; p<config.paragraphsPerChapter; p++) {
                         let paragraph = "";
-                        // Start with the main seed for the first paragraph, or a variation for others
                         if (p === 0) paragraph += seed + " ";
-                        
-                        // Add 15 sentences using fillers and context
                         for(let s=0; s<config.sentencesPerParagraph; s++) {
-                            // Pick a random filler to simulate density
                             const filler = fillers[lang][Math.floor(Math.random() * fillers[lang].length)];
                             paragraph += filler + " ";
                         }
@@ -374,13 +357,12 @@
             app.lang = lang;
             const isRTL = lang === 'fa';
             
-            // Layout
+            // Layout & Font
             document.body.dir = isRTL ? 'rtl' : 'ltr';
             document.getElementById('sidebar').classList.toggle('text-right', isRTL);
             document.getElementById('sidebar').dir = isRTL ? 'rtl' : 'ltr';
             document.getElementById('nav-container').style.flexDirection = isRTL ? 'row-reverse' : 'row';
             
-            // Fonts
             if(isRTL) {
                 document.body.classList.add('lang-fa');
                 document.getElementById('chapter-title').classList.remove('font-serif-heading');
@@ -389,7 +371,7 @@
                 document.getElementById('chapter-title').classList.add('font-serif-heading');
             }
 
-            // Buttons
+            // Buttons Highlight
             ['en', 'tr', 'fa'].forEach(l => {
                 const btn = document.getElementById(`btn-${l}`);
                 if(l === lang) {
@@ -399,7 +381,7 @@
                 }
             });
 
-            // UI Text
+            // UI Texts
             const uiText = {
                 en: { toc: "Syllabus", dl: "Download PDF", prev: "Previous", next: "Next", back: "Back", cont: "Continue" },
                 tr: { toc: "İçindekiler", dl: "PDF İndir", prev: "Önceki", next: "Sonraki", back: "Geri", cont: "Devam" },
@@ -410,8 +392,10 @@
             document.getElementById('download-text').innerText = uiText[lang].dl;
             document.getElementById('prev-lbl').innerText = uiText[lang].prev;
             document.getElementById('next-lbl').innerText = uiText[lang].next;
+            document.getElementById('prev-val').innerText = uiText[lang].back;
+            document.getElementById('next-val').innerText = uiText[lang].cont;
             
-            // PDF Link & Cover
+            // PDF & Cover (Standard 'images/' path used)
             const pdfs = { en: "The Agentic Symphony -English.pdf", tr: "The Agentic Symphony -Turkish.pdf", fa: "The Agentic Symphony -Persian.pdf" };
             const covers = { en: "coverenglish.png", tr: "coverturkish.png", fa: "coverpersian.png" };
             
@@ -458,11 +442,10 @@
 
             stopSpeech();
 
-            // Fade Out
+            // Transition
             content.classList.remove('fade-enter');
             void content.offsetWidth; 
 
-            // Set Content
             const chapterWord = { en: "Chapter", tr: "Bölüm", fa: "فصل" };
             chNum.innerText = `${chapterWord[app.lang]} ${chap.id}`;
             title.innerText = chap.title;
@@ -476,7 +459,6 @@
             content.classList.add('fade-enter');
             document.getElementById('main-scroll').scrollTo({top:0, behavior:'smooth'});
 
-            // Nav State
             document.getElementById('prev-btn').disabled = app.chapterIdx === 0;
             document.getElementById('next-btn').disabled = app.chapterIdx === app.contentCache[app.lang].length - 1;
             
@@ -510,13 +492,14 @@
         let voices = [];
 
         function setupAudio() {
-            if(speechSynthesis.onvoiceschanged !== undefined) {
+            if(speechSynthesis && synthesis.onvoiceschanged !== undefined) {
                 speechSynthesis.onvoiceschanged = () => { voices = synth.getVoices(); };
             }
-            voices = synth.getVoices();
+            if(synth) voices = synth.getVoices();
         }
 
         function toggleSpeech() {
+            if(!synth) return;
             if(synth.speaking && !synth.paused) {
                 synth.pause();
                 updatePlayer(false);
@@ -529,38 +512,30 @@
         }
 
         function stopSpeech() {
+            if(!synth) return;
             synth.cancel();
             updatePlayer(false);
-            document.getElementById('reading-progress').style.width = '0%';
+            const prog = document.getElementById('reading-progress');
+            if(prog) prog.style.width = '0%';
         }
 
         function readChapter() {
-            if(app.lang === 'fa') return;
+            if(app.lang === 'fa' || !synth) return;
             
             const chap = app.contentCache[app.lang][app.chapterIdx];
             const text = `${chap.title}. ${chap.paragraphs.join(" ")}`;
             
             app.utterance = new SpeechSynthesisUtterance(text);
             
-            // Explicit language setting
             const targetLang = app.lang === 'tr' ? 'tr-TR' : 'en-US';
             app.utterance.lang = targetLang;
             
-            // Robust Voice Selection
+            if(voices.length === 0) voices = synth.getVoices();
             const strictVoice = voices.find(v => v.lang.replace('_', '-') === targetLang);
             const looseVoice = voices.find(v => v.lang.toLowerCase().startsWith(app.lang));
             
-            if (strictVoice) {
-                app.utterance.voice = strictVoice;
-            } else if (looseVoice) {
-                app.utterance.voice = looseVoice;
-            }
-            // else: use browser default
-            
-            // Reload voices if empty (defensive)
-            if (voices.length === 0) {
-                 voices = synth.getVoices();
-            }
+            if (strictVoice) app.utterance.voice = strictVoice;
+            else if (looseVoice) app.utterance.voice = looseVoice;
             
             app.utterance.rate = app.speechRate;
             app.utterance.volume = document.querySelector('input[type=range]').value;
@@ -570,12 +545,13 @@
                 document.getElementById('reading-progress').style.width = '100%';
             };
 
-            // Fake Progress
+            // Progress estimation
             let charCount = 0;
             app.utterance.onboundary = (e) => {
-                charCount += e.charLength + (e.charIndex - charCount); // rough estimate fix
+                charCount += e.charLength + (e.charIndex - charCount); 
                 const pct = Math.min((e.charIndex / text.length) * 100, 100);
-                document.getElementById('reading-progress').style.width = `${pct}%`;
+                const prog = document.getElementById('reading-progress');
+                if(prog) prog.style.width = `${pct}%`;
             };
 
             synth.speak(app.utterance);
@@ -603,7 +579,7 @@
             let i = rates.indexOf(app.speechRate);
             app.speechRate = rates[(i + 1) % rates.length];
             document.getElementById('speed-btn').innerText = `${app.speechRate}x`;
-            if(synth.speaking) { stopSpeech(); readChapter(); }
+            if(synth && synth.speaking) { stopSpeech(); readChapter(); }
         }
 
         function changeVolume(v) {
