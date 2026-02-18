@@ -337,7 +337,7 @@
         function init() {
             // Generate content for all languages on load
             generateAllContent();
-            setLang('en');
+            changeLang('en');
             setupAudio();
         }
 
@@ -370,7 +370,7 @@
             });
         }
 
-        function setLang(lang) {
+        function changeLang(lang) {
             app.lang = lang;
             const isRTL = lang === 'fa';
             
