@@ -542,10 +542,25 @@
             
             app.utterance = new SpeechSynthesisUtterance(text);
             
-            // Prefer Google voices
-            const target = app.lang === 'tr' ? 'tr-TR' : 'en-US';
-            const v = voices.find(v => v.lang === target && v.name.includes("Google")) || voices.find(v => v.lang.startsWith(app.lang));
-            if(v) app.utterance.voice = v;
+            // Explicit language setting
+            const targetLang = app.lang === 'tr' ? 'tr-TR' : 'en-US';
+            app.utterance.lang = targetLang;
+            
+            // Robust Voice Selection
+            const strictVoice = voices.find(v => v.lang.replace('_', '-') === targetLang);
+            const looseVoice = voices.find(v => v.lang.toLowerCase().startsWith(app.lang));
+            
+            if (strictVoice) {
+                app.utterance.voice = strictVoice;
+            } else if (looseVoice) {
+                app.utterance.voice = looseVoice;
+            }
+            // else: use browser default
+            
+            // Reload voices if empty (defensive)
+            if (voices.length === 0) {
+                 voices = synth.getVoices();
+            }
             
             app.utterance.rate = app.speechRate;
             app.utterance.volume = document.querySelector('input[type=range]').value;
