@@ -37,9 +37,6 @@
             direction: rtl;
         }
         
-        .lang-fa .chapter-title { font-family: 'Noto Sans Arabic', sans-serif; font-weight: 800; line-height: 1.4; }
-        .lang-fa .serif-font { font-family: 'Noto Sans Arabic', sans-serif; }
-        
         /* Justified Text Logic */
         .book-text {
             line-height: 2;
@@ -103,17 +100,16 @@
                     <i class="fas fa-times"></i>
                 </button>
 
-                <!-- Cover Image -->
-                <div class="w-36 h-56 mb-5 shadow-xl rounded-md overflow-hidden group relative transform transition hover:-translate-y-1 duration-500">
-                    <!-- Default src will be updated by JS -->
-                    <img id="book-cover" src="pdf/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.style.display='none'">
+                <!-- Cover Image (Now sourced from pdf folder) -->
+                <div class="w-36 h-56 mb-5 shadow-xl rounded-md overflow-hidden group relative transform transition hover:-translate-y-1 duration-500 bg-gray-200">
+                    <img id="book-cover" src="pdf/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover transition-opacity duration-300">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 </div>
 
-                <h1 class="text-xl font-bold text-slate-800 font-serif-heading text-center serif-font">Faramarz Kowsari</h1>
+                <h1 class="text-xl font-bold text-slate-800 font-serif-heading text-center">Faramarz Kowsari</h1>
                 <p class="text-[11px] text-blue-600 font-bold tracking-widest uppercase mt-1">Strategic AI Architect</p>
                 
-                <!-- Social Links -->
+                <!-- Social Links (Updated with Email) -->
                 <div class="flex justify-center space-x-5 mt-4 text-gray-400">
                     <a href="mailto:info@faramarzkowsari.com" class="hover:text-blue-600 transition hover:scale-110" title="Email"><i class="fas fa-envelope text-lg"></i></a>
                     <a href="https://www.linkedin.com/in/faramarzkowsari" target="_blank" class="hover:text-blue-700 transition hover:scale-110"><i class="fab fa-linkedin text-lg"></i></a>
@@ -155,7 +151,7 @@
                 <div class="mb-12 border-b-2 border-slate-100 pb-8 fade-enter">
                     <div id="chapter-header-row" class="flex items-center space-x-2 mb-3 rtl-flip">
                         <span class="w-8 h-[2px] bg-blue-500"></span>
-                        <span id="chapter-number" class="text-sm font-bold text-blue-600 uppercase tracking-widest">Chapter 1</span>
+                        <span id="chapter-number" class="text-sm font-bold text-blue-600 uppercase tracking-widest font-serif-heading">Chapter 1</span>
                     </div>
                     <h2 id="chapter-title" class="text-3xl md:text-5xl font-bold text-slate-900 font-serif-heading leading-tight">The Genesis of Agency</h2>
                 </div>
@@ -237,46 +233,45 @@
             fa: ["پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های ارتباطی معنایی", "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", "عاملیت لبه", "عصر پسابرنامه‌نویسی"]
         };
 
-        // --- 2. CONTENT SEEDS ---
         const seeds = {
             en: [
-                "The shift from static code to dynamic agency represents a fundamental evolution in computer science. We are moving from explicit instruction to implicit intent.",
-                "Centralized versus decentralized control remains the core debate in system architecture. Hybrid models offer the best balance for national scale resilience.",
-                "Language is the protocol of thought, enabling machines to negotiate meaning. Semantic communication allows for unprecedented interoperability.",
-                "Breaking complex goals into atomic tasks requires a new form of strategic logic. Decomposition ensures that no agent is overwhelmed.",
-                "The OODA loop drives the internal life of the agent, forming the heartbeat of autonomy. Observation and orientation are key.",
-                "Collaboration amplifies intelligence, producing solutions superior to any single model. Consensus mechanisms prevent chaos.",
-                "The human role shifts from coder to conductor, defining the vision and ethics. Supervision is the new programming.",
-                "Security must be intrinsic, protecting the ensemble from adversarial corruption. Identity and trust are the new firewalls.",
-                "Generative AI brings art to the machine, merging silicon with soul. Aesthetics become a functional requirement.",
-                "Processing moves to the edge for privacy and speed, empowering the individual. Local sovereignty protects data.",
-                "We enter the post-programming era, where wisdom is the primary asset. The future belongs to those who orchestrate."
+                "The shift from static code to dynamic agency represents a fundamental evolution in computer science.",
+                "Centralized versus decentralized control remains the core debate in system architecture.",
+                "Language is the protocol of thought, enabling machines to negotiate meaning.",
+                "Breaking complex goals into atomic tasks requires a new form of strategic logic.",
+                "The OODA loop drives the internal life of the agent, forming the heartbeat of autonomy.",
+                "Collaboration amplifies intelligence, producing solutions superior to any single model.",
+                "The human role shifts from coder to conductor, defining the vision and ethics.",
+                "Security must be intrinsic, protecting the ensemble from adversarial corruption.",
+                "Generative AI brings art to the machine, merging silicon with soul.",
+                "Processing moves to the edge for privacy and speed, empowering the individual.",
+                "We enter the post-programming era, where wisdom is the primary asset."
             ],
             tr: [
-                "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder. Açık talimattan örtük niyete doğru ilerliyoruz.",
-                "Merkezi ve merkezi olmayan kontrol, sistem mimarisindeki temel tartışma konusu olmaya devam ediyor. Hibrit modeller dayanıklılık sunar.",
-                "Dil, düşüncenin protokolüdür ve makinelerin anlamı müzakere etmesini sağlar. Anlamsal iletişim uyumu garanti eder.",
-                "Karmaşık hedefleri atomik görevlere bölmek yeni bir stratejik mantık biçimi gerektirir. Ayrıştırma, başarı için esastır.",
-                "OODA döngüsü, ajanın iç yaşamını yönlendirir ve otonominin kalp atışını oluşturur. Algı ve yönlendirme hayati önem taşır.",
-                "İşbirliği zekayı güçlendirir ve tekil modellerden daha üstün çözümler üretir. Konsensüs kaosun önüne geçer.",
-                "İnsan rolü kodlayıcıdan şefe dönüşüyor, vizyonu ve etiği tanımlıyor. Gözetim yeni programlamadır.",
-                "Güvenlik içsel olmalı, topluluğu düşmanca bozulmalardan korumalıdır. Kimlik ve güven yeni güvenlik duvarlarıdır.",
-                "Üretken yapay zeka, sanatı makineye getiriyor, silikonu ruhla birleştiriyor. Estetik işlevsel bir gereklilik haline gelir.",
-                "İşleme, gizlilik ve hız için uca taşınıyor, bireyi güçlendiriyor. Yerel egemenlik verileri korur.",
-                "Programlama sonrası çağa giriyoruz, bilgelik birincil varlık haline geliyor. Gelecek, orkestre edenlerindir."
+                "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder.",
+                "Merkezi ve merkezi olmayan kontrol, sistem mimarisindeki temel tartışma konusu olmaya devam ediyor.",
+                "Dil, düşüncenin protokolüdür ve makinelerin anlamı müzakere etmesini sağlar.",
+                "Karmaşık hedefleri atomik görevlere bölmek yeni bir stratejik mantık biçimi gerektirir.",
+                "OODA döngüsü, ajanın iç yaşamını yönlendirir ve otonominin kalp atışını oluşturur.",
+                "İşbirliği zekayı güçlendirir ve tekil modellerden daha üstün çözümler üretir.",
+                "İnsan rolü kodlayıcıdan şefe dönüşüyor, vizyonu ve etiği tanımlıyor.",
+                "Güvenlik içsel olmalı, topluluğu düşmanca bozulmalardan korumalıdır.",
+                "Üretken yapay zeka, sanatı makineye getiriyor, silikonu ruhla birleştiriyor.",
+                "İşleme, gizlilik ve hız için uca taşınıyor, bireyi güçlendiriyor.",
+                "Programlama sonrası çağa giriyoruz, bilgelik birincil varlık haline geliyor."
             ],
             fa: [
-                "گذار از کد ایستا به عاملیت پویا، نمایانگر تکاملی بنیادین در علوم رایانه است. ما از عصر دستورات صریح به دوران نیت‌های هوشمند گام می‌نهیم.",
-                "بحث میان کنترل متمرکز و غیرمتمرکز همچنان هسته اصلی معماری سیستم‌های کلان باقی مانده است. مدل‌های ترکیبی بهترین تعادل را ارائه می‌دهند.",
-                "زبان، پروتکل اندیشه است و به ماشین‌ها اجازه می‌دهد تا بر سر مفاهیم مذاکره کنند. ارتباطات معنایی یکپارچگی را تضمین می‌کند.",
-                "خرد کردن اهداف پیچیده به وظایف اتمی نیازمند فرم جدیدی از منطق استراتژیک است. تجزیه درست ضامن موفقیت مأموریت است.",
-                "حلقه OODA زندگی درونی عامل را هدایت می‌کند و ضربان قلب سیستم‌های خودمختار را تشکیل می‌دهد. ادراک و جهت‌گیری کلیدی هستند.",
-                "همکاری، هوش را تقویت می‌کند و راه‌حل‌هایی فراتر از ظرفیت فردی تولید می‌نماید. مکانیزم‌های اجماع از آشوب جلوگیری می‌کنند.",
-                "نقش انسان از کدنویس به رهبر ارکستر تغییر می‌کند و چشم‌انداز و اخلاق را تعریف می‌کند. نظارت، برنامه‌نویسی جدید است.",
-                "امنیت باید ذاتی باشد و گروه را از فساد خصمانه و نفوذ بیگانگان محافظت کند. هویت و اعتماد دیوارهای آتشین جدید هستند.",
-                "هوش مصنوعی مولد، هنر را به ماشین می‌آورد و سیلیکون را با روح پیوند می‌دهد. زیبایی‌شناسی به یک نیاز عملکردی تبدیل می‌شود.",
-                "پردازش برای حریم خصوصی و سرعت به لبه شبکه منتقل می‌شود و فرد را توانمند می‌سازد. حاکمیت محلی از داده‌ها محافظت می‌کند.",
-                "ما وارد عصر پسابرنامه‌نویسی می‌شویم، جایی که خرد به دارایی اصلی بدل می‌گردد. آینده متعلق به کسانی است که ارکستره می‌کنند."
+                "گذار از کد ایستا به عاملیت پویا، نمایانگر تکاملی بنیادین در علوم رایانه است.",
+                "بحث میان کنترل متمرکز و غیرمتمرکز همچنان هسته اصلی معماری سیستم‌های کلان باقی مانده است.",
+                "زبان، پروتکل اندیشه است و به ماشین‌ها اجازه می‌دهد تا بر سر مفاهیم مذاکره کنند.",
+                "خرد کردن اهداف پیچیده به وظایف اتمی نیازمند فرم جدیدی از منطق استراتژیک است.",
+                "حلقه OODA زندگی درونی عامل را هدایت می‌کند و ضربان قلب سیستم‌های خودمختار را تشکیل می‌دهد.",
+                "همکاری، هوش را تقویت می‌کند و راه‌حل‌هایی فراتر از ظرفیت فردی تولید می‌نماید.",
+                "نقش انسان از کدنویس به رهبر ارکستر تغییر می‌کند و چشم‌انداز و اخلاق را تعریف می‌کند.",
+                "امنیت باید ذاتی باشد و گروه را از فساد خصمانه و نفوذ بیگانگان محافظت کند.",
+                "هوش مصنوعی مولد، هنر را به ماشین می‌آورد و سیلیکون را با روح پیوند می‌دهد.",
+                "پردازش برای حریم خصوصی و سرعت به لبه شبکه منتقل می‌شود و فرد را توانمند می‌سازد.",
+                "ما وارد عصر پسابرنامه‌نویسی می‌شویم، جایی که خرد به دارایی اصلی بدل می‌گردد."
             ]
         };
 
@@ -329,7 +324,6 @@
 
         function init() {
             generateAllContent();
-            // Default to English
             changeLang('en');
             setupAudio();
         }
@@ -346,7 +340,6 @@
                     for(let p=0; p<config.paragraphsPerChapter; p++) {
                         let paragraph = "";
                         if (p === 0) paragraph += seed + " ";
-                        // Ensure 15 sentences length
                         for(let s=0; s<config.sentencesPerParagraph; s++) {
                             const filler = fillers[lang][Math.floor(Math.random() * fillers[lang].length)];
                             paragraph += filler + " ";
@@ -359,26 +352,16 @@
         }
 
         function changeLang(lang) {
-            // 1. Set State
             app.lang = lang;
             const isRTL = lang === 'fa';
             
-            // 2. DOM Updates (Immediate visual feedback)
+            // Layout & Font
             document.body.dir = isRTL ? 'rtl' : 'ltr';
             document.getElementById('sidebar').classList.toggle('text-right', isRTL);
             document.getElementById('sidebar').dir = isRTL ? 'rtl' : 'ltr';
             document.getElementById('nav-container').style.flexDirection = isRTL ? 'row-reverse' : 'row';
             
-            // Handle Fonts & Layout
-            if(isRTL) {
-                document.body.classList.add('lang-fa');
-                document.getElementById('chapter-title').classList.remove('font-serif-heading');
-            } else {
-                document.body.classList.remove('lang-fa');
-                document.getElementById('chapter-title').classList.add('font-serif-heading');
-            }
-
-            // Chapter Number RTL fix
+            // Chapter Header Layout Fix
             const chRow = document.getElementById('chapter-header-row');
             if (isRTL) {
                 chRow.classList.remove('space-x-2');
@@ -386,6 +369,18 @@
             } else {
                  chRow.classList.remove('space-x-reverse');
                  chRow.classList.add('space-x-2');
+            }
+            
+            // Handle Persian Specifics
+            if(isRTL) {
+                document.body.classList.add('lang-fa');
+                document.getElementById('chapter-title').classList.remove('font-serif-heading');
+                stopSpeech();
+                document.getElementById('player').classList.add('hidden');
+            } else {
+                document.body.classList.remove('lang-fa');
+                document.getElementById('chapter-title').classList.add('font-serif-heading');
+                document.getElementById('player').classList.remove('hidden');
             }
 
             // Buttons Highlight
@@ -412,11 +407,7 @@
             document.getElementById('prev-val').innerText = uiText[lang].back;
             document.getElementById('next-val').innerText = uiText[lang].cont;
             
-            // 3. Update Content Immediately (Fixing the lag issue)
-            renderTOC();
-            renderChapter();
-            
-            // 4. Update Images & PDF (Corrected Paths to 'pdf/')
+            // PDF & Cover (Using pdf folder as requested)
             const pdfs = { en: "The Agentic Symphony -English.pdf", tr: "The Agentic Symphony -Turkish.pdf", fa: "The Agentic Symphony -Persian.pdf" };
             const covers = { en: "coverenglish.png", tr: "coverturkish.png", fa: "coverpersian.png" };
             
@@ -425,21 +416,15 @@
             
             const img = document.getElementById('book-cover');
             img.style.opacity = 0;
-            // Update source to 'pdf/' folder as requested
-            setTimeout(() => { img.src = `pdf/${covers[lang]}`; img.style.opacity = 1; }, 200);
+            // Using pdf/ folder for images as per user instruction
+            setTimeout(() => { 
+                img.src = `pdf/${covers[lang]}`; 
+                img.style.opacity = 1; 
+            }, 200);
 
-            // 5. Audio Handling (Safe Try-Catch to prevent crashes)
-            try {
-                const player = document.getElementById('player');
-                if (lang === 'fa') {
-                    stopSpeech();
-                    player.classList.add('hidden');
-                } else {
-                    player.classList.remove('hidden');
-                }
-            } catch (e) {
-                console.log("Audio player visual update error", e);
-            }
+            // Important: Force render of content immediately
+            renderTOC();
+            renderChapter();
         }
 
         function renderTOC() {
@@ -465,15 +450,20 @@
             const title = document.getElementById('chapter-title');
             const content = document.getElementById('text-content');
 
-            // Safe stop
             try { stopSpeech(); } catch(e){}
 
-            // Reset Animation
             content.classList.remove('fade-enter');
             void content.offsetWidth; 
 
-            const chapterWord = { en: "Chapter", tr: "Bölüm", fa: "فصل" };
-            chNum.innerText = `${chapterWord[app.lang]} ${chap.id}`;
+            // Chapter Number Logic
+            if (app.lang === 'fa') {
+                // Just the English number for Persian as requested
+                chNum.innerText = `${chap.id}`;
+            } else {
+                const chapterWord = { en: "Chapter", tr: "Bölüm" };
+                chNum.innerText = `${chapterWord[app.lang]} ${chap.id}`;
+            }
+            
             title.innerText = chap.title;
             
             let html = "";
@@ -513,7 +503,6 @@
             }
         }
 
-        // --- AUDIO ENGINE (Robust) ---
         let synth = window.speechSynthesis;
         let voices = [];
 
