@@ -30,21 +30,22 @@
         .rtl .flip-icon { transform: scaleX(-1); }
         .rtl .text-justify { text-align: justify; }
 
-        /* Mini Player Style */
+        /* Mini Player Style - Optimized for Mobile */
         .mini-audio-widget {
             position: fixed;
-            bottom: 20px;
+            bottom: 24px;
             right: 20px;
-            z-index: 100;
+            z-index: 999; /* تضمین نمایش روی تمامی المان‌ها در موبایل */
             background: white;
             border: 1px solid #e2e8f0;
             border-radius: 50px;
-            padding: 8px 16px;
+            padding: 10px 18px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transition: all 0.3s ease;
+            max-width: 85vw;
         }
         
         .lang-fa .mini-audio-widget { right: auto; left: 20px; flex-direction: row-reverse; }
@@ -80,7 +81,7 @@
             <i class="fas fa-file-pdf"></i> TÜRKÇE
         </a>
         <a id="dl-fa" href="pdf/The Agentic Symphony -Persian.pdf" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-[10px] font-extrabold px-4 py-1.5 rounded-full transition-all flex items-center gap-2 fa-font">
-            <i class="fas fa-file-pdf"></i> فارسی (رایگان)
+            <i class="fas fa-file-pdf"></i> فارسی
         </a>
     </div>
 
@@ -192,7 +193,7 @@
                 cover: "images/coverenglish.png",
                 ui: { toc: "Chapters", dl: "Download", prev: "Prev", next: "Next" },
                 titles: ["The Genesis of Agency", "Architectures of Coordination", "Semantic Protocols", "Strategic Decomposition", "The Cognitive Loop", "Collaborative Reasoning", "The Human Maestro", "Security in the Ensemble", "Generative Aesthetics", "Edge Agency", "The Post-Programming Era"],
-                filler: "The evolution from static commands to agentic intent is a fundamental shift in our civilization. We are orchestrating digital symphonies where specialized agents perform as expert musicians. This transformation liberates human creativity from technical repetition. The maestro's role is to define the goal while the machine manages the execution. Every agent in the orchestra brings a unique expertise to the ensemble. We are building a future where intelligence is collaborative and adaptive. This shift requires new protocols of communication and coordination. Resilience is achieved through decentralized decision making. The cognitive loop allows for continuous learning and alignment. Strategic AI is the cornerstone of national technological sovereignty."
+                filler: "The evolution from static commands to agentic intent is a fundamental shift in our civilization. We are orchestrating digital symfonties where specialized agents perform as expert musicians. This transformation liberates human creativity from technical repetition. The maestro's role is to define the goal while the machine manages the execution. Every agent in the orchestra brings a unique expertise to the ensemble. We are building a future where intelligence is collaborative and adaptive. This shift requires new protocols of communication and coordination. Resilience is achieved through decentralized decision making. The cognitive loop allows for continuous learning and alignment. Strategic AI is the cornerstone of national technological sovereignty."
             },
             tr: {
                 cover: "images/coverturkish.png",
@@ -341,7 +342,11 @@
                 document.getElementById('play-btn').innerHTML = playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play ml-1"></i>';
                 document.getElementById('audio-status').innerText = playing ? "Reading Chapter..." : (this.synth.paused ? "Paused" : "Listen Chapter");
             },
-            showWidget: function() { document.getElementById('audio-player').classList.remove('hidden'); },
+            showWidget: function() { 
+                const player = document.getElementById('audio-player');
+                player.classList.remove('hidden'); 
+                player.style.display = 'flex'; // تضمین نمایش در موبایل
+            },
             hide: function() { this.stop(); document.getElementById('audio-player').classList.add('hidden'); }
         };
 
