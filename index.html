@@ -15,12 +15,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+Arabic:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Settings */
+        /* --- DESIGN TOKENS --- */
         :root {
             --primary: #2563eb;
-            --secondary: #1e40af;
-            --glass-bg: rgba(255, 255, 255, 0.95);
-            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.92);
+            --glass-border: rgba(255, 255, 255, 0.6);
         }
 
         body {
@@ -30,155 +29,149 @@
         }
 
         /* Typography */
-        .font-serif-heading { font-family: 'Playfair Display', serif; }
+        .font-heading { font-family: 'Playfair Display', serif; }
         
+        /* Persian Specifics */
         .lang-fa {
             font-family: 'Noto Sans Arabic', sans-serif;
             direction: rtl;
         }
+        .lang-fa .chapter-title { font-family: 'Noto Sans Arabic', sans-serif; font-weight: 800; line-height: 1.5; }
+        .lang-fa .book-text { font-size: 1.15rem; line-height: 2.4; text-align: justify; }
+        .lang-fa .rtl-flip { transform: scaleX(-1); }
         
-        /* Justified Text Logic */
+        /* Standard Text */
         .book-text {
             line-height: 2;
             color: #334155;
             text-align: justify;
             text-justify: inter-word;
         }
-        
-        .lang-fa .book-text { 
-            font-size: 1.15rem; 
-            line-height: 2.3; 
-            text-align: justify;
-        }
 
-        /* Glassmorphism Player */
+        /* Glass Player */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
         }
 
         /* Animations */
-        .fade-enter { animation: fadeIn 0.5s ease-out forwards; }
-        
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        /* RTL Specifics */
-        .lang-fa .rtl-flip { transform: scaleX(-1); }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-200 selection:text-blue-900">
+<body class="antialiased selection:bg-blue-100 selection:text-blue-900">
 
     <!-- Mobile Header -->
     <div class="md:hidden fixed top-0 w-full z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 px-4 py-3 flex justify-between items-center shadow-sm">
-        <button onclick="toggleSidebar()" class="text-gray-700 hover:text-blue-600 transition">
+        <button onclick="toggleSidebar()" class="text-gray-600 hover:text-blue-600 transition">
             <i class="fas fa-bars text-xl"></i>
         </button>
-        <span class="font-serif-heading font-bold text-gray-800 text-lg">The Agentic Symphony</span>
+        <span class="font-heading font-bold text-gray-800 text-lg">The Agentic Symphony</span>
         <div class="w-6"></div> 
     </div>
 
     <div class="flex h-screen pt-14 md:pt-0">
         
-        <!-- SIDEBAR -->
+        <!-- SIDEBAR (Navigation & Settings) -->
         <aside id="sidebar" class="fixed md:relative z-50 w-80 h-full bg-white border-r border-gray-200 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none">
             
-            <!-- Profile Area -->
+            <!-- Author Profile & Cover -->
             <div class="p-6 flex flex-col items-center bg-gradient-to-b from-slate-50 to-white relative">
                 <button onclick="toggleSidebar()" class="md:hidden absolute top-4 right-4 text-gray-400 hover:text-red-500">
                     <i class="fas fa-times"></i>
                 </button>
 
-                <!-- Cover Image (Now sourced from pdf folder) -->
-                <div class="w-36 h-56 mb-5 shadow-xl rounded-md overflow-hidden group relative transform transition hover:-translate-y-1 duration-500 bg-gray-200">
-                    <img id="book-cover" src="pdf/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover transition-opacity duration-300">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                <!-- Dynamic Book Cover -->
+                <div class="w-32 h-48 mb-4 shadow-xl rounded-md overflow-hidden group relative transform transition hover:-translate-y-1 duration-500 bg-gray-100">
+                    <img id="book-cover" src="images/coverenglish.png" alt="Book Cover" class="w-full h-full object-cover transition-opacity duration-300">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end justify-center pb-2">
+                        <span class="text-white text-xs font-bold uppercase tracking-wider">View Cover</span>
+                    </div>
                 </div>
 
-                <h1 class="text-xl font-bold text-slate-800 font-serif-heading text-center">Faramarz Kowsari</h1>
-                <p class="text-[11px] text-blue-600 font-bold tracking-widest uppercase mt-1">Strategic AI Architect</p>
+                <h1 class="text-lg font-bold text-slate-900 font-heading text-center">Faramarz Kowsari</h1>
+                <p class="text-[10px] text-blue-600 font-bold tracking-widest uppercase mt-1">Strategic AI Architect</p>
                 
-                <!-- Social Links (Updated with Email) -->
-                <div class="flex justify-center space-x-5 mt-4 text-gray-400">
-                    <a href="mailto:info@faramarzkowsari.com" class="hover:text-blue-600 transition hover:scale-110" title="Email"><i class="fas fa-envelope text-lg"></i></a>
-                    <a href="https://www.linkedin.com/in/faramarzkowsari" target="_blank" class="hover:text-blue-700 transition hover:scale-110"><i class="fab fa-linkedin text-lg"></i></a>
-                    <a href="https://play.google.com/store/search?q=Faramarz_Kowsari&c=books" target="_blank" class="hover:text-green-600 transition hover:scale-110"><i class="fab fa-google-play text-lg"></i></a>
+                <!-- Links -->
+                <div class="flex justify-center space-x-4 mt-3 text-gray-400">
+                    <a href="mailto:info@faramarzkowsari.com" class="hover:text-blue-600 transition transform hover:scale-110" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="https://www.linkedin.com/in/faramarzkowsari" target="_blank" class="hover:text-blue-700 transition transform hover:scale-110" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://play.google.com/store/search?q=Faramarz_Kowsari&c=books" target="_blank" class="hover:text-green-600 transition transform hover:scale-110" title="Google Play"><i class="fab fa-google-play"></i></a>
                 </div>
             </div>
 
             <!-- Language Switcher -->
-            <div class="px-6 py-4 border-y border-gray-100 bg-slate-50/50">
+            <div class="px-6 py-3 border-y border-gray-100 bg-slate-50/50">
                 <div class="flex bg-white p-1 rounded-lg border border-gray-200 shadow-sm">
-                    <button onclick="changeLang('en')" id="btn-en" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all bg-blue-600 text-white shadow-md">ENG</button>
-                    <button onclick="changeLang('tr')" id="btn-tr" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all text-gray-500 hover:bg-gray-100">TR</button>
-                    <button onclick="changeLang('fa')" id="btn-fa" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all text-gray-500 hover:bg-gray-100 font-serif-heading">فا</button>
+                    <button onclick="app.changeLang('en')" id="btn-en" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all">ENG</button>
+                    <button onclick="app.changeLang('tr')" id="btn-tr" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all">TR</button>
+                    <button onclick="app.changeLang('fa')" id="btn-fa" class="flex-1 py-1.5 text-xs font-bold rounded-md transition-all font-heading">فا</button>
                 </div>
             </div>
 
-            <!-- TOC -->
+            <!-- Chapters List -->
             <div class="flex-1 overflow-y-auto px-4 py-4 custom-scrollbar">
                 <h3 id="toc-title" class="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest mb-3 pl-2">Syllabus</h3>
                 <nav id="chapter-list" class="space-y-1">
-                    <!-- Dynamic Chapters -->
+                    <!-- Injected via JS -->
                 </nav>
             </div>
 
-            <!-- Download -->
+            <!-- PDF Download -->
             <div class="p-4 border-t border-gray-200 bg-white">
-                <a id="download-btn" href="#" class="flex items-center justify-center w-full py-3 bg-slate-800 hover:bg-blue-600 text-white rounded-xl shadow-lg transition-all group">
+                <a id="download-btn" href="#" class="flex items-center justify-center w-full py-3 bg-slate-900 hover:bg-blue-600 text-white rounded-xl shadow-lg transition-all group">
                     <i class="fas fa-file-pdf mr-2 group-hover:scale-110 transition"></i>
                     <span id="download-text" class="text-sm font-bold">Download PDF</span>
                 </a>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
+        <!-- MAIN READER AREA -->
         <main id="main-scroll" class="flex-1 overflow-y-auto bg-white relative scroll-smooth">
             <div class="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-20 min-h-full flex flex-col">
                 
-                <!-- Header -->
-                <div class="mb-12 border-b-2 border-slate-100 pb-8 fade-enter">
-                    <div id="chapter-header-row" class="flex items-center space-x-2 mb-3 rtl-flip">
+                <!-- Chapter Header -->
+                <div class="mb-10 border-b-2 border-slate-100 pb-6 fade-in">
+                    <div id="chapter-header-row" class="flex items-center space-x-2 mb-2 rtl-flip">
                         <span class="w-8 h-[2px] bg-blue-500"></span>
-                        <span id="chapter-number" class="text-sm font-bold text-blue-600 uppercase tracking-widest font-serif-heading">Chapter 1</span>
+                        <span id="chapter-num" class="text-xs font-bold text-blue-600 uppercase tracking-widest">Chapter 1</span>
                     </div>
-                    <h2 id="chapter-title" class="text-3xl md:text-5xl font-bold text-slate-900 font-serif-heading leading-tight">The Genesis of Agency</h2>
+                    <h2 id="chapter-title" class="text-3xl md:text-5xl font-bold text-slate-900 font-heading leading-tight">The Genesis of Agency</h2>
                 </div>
 
-                <!-- Text Body -->
-                <article id="text-content" class="book-text text-lg text-slate-700 space-y-8 fade-enter flex-1 pb-20">
-                    <!-- Generated Content Here -->
+                <!-- Text Content -->
+                <article id="text-content" class="book-text text-lg text-slate-700 space-y-8 fade-in flex-1 pb-24">
+                    <!-- Text Injected Here -->
                 </article>
 
                 <!-- Navigation Footer -->
-                <div class="mt-auto pt-10 border-t border-slate-100 flex justify-between items-center fade-enter" id="nav-container">
-                    <button onclick="navChapter(-1)" id="prev-btn" class="group flex items-center px-4 py-3 rounded-xl hover:bg-slate-50 transition disabled:opacity-30 disabled:cursor-not-allowed">
-                        <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 text-slate-400 group-hover:border-blue-400 group-hover:text-blue-500 transition rtl-flip shadow-sm">
+                <div class="mt-auto pt-8 border-t border-slate-100 flex justify-between items-center fade-in" id="nav-container">
+                    <button onclick="app.nav(-1)" id="prev-btn" class="group flex items-center px-4 py-3 rounded-xl hover:bg-slate-50 transition disabled:opacity-30">
+                        <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center mr-3 text-slate-400 group-hover:border-blue-400 group-hover:text-blue-500 transition rtl-flip">
                             <i class="fas fa-arrow-left text-xs"></i>
                         </div>
                         <div class="text-left">
                             <div id="prev-lbl" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Previous</div>
-                            <div id="prev-val" class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Back</div>
                         </div>
                     </button>
 
-                    <button onclick="navChapter(1)" id="next-btn" class="group flex items-center px-4 py-3 rounded-xl hover:bg-slate-50 transition disabled:opacity-30 disabled:cursor-not-allowed">
+                    <button onclick="app.nav(1)" id="next-btn" class="group flex items-center px-4 py-3 rounded-xl hover:bg-slate-50 transition disabled:opacity-30">
                         <div class="text-right">
                             <div id="next-lbl" class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Next</div>
-                            <div id="next-val" class="font-bold text-slate-700 group-hover:text-blue-600 text-sm transition">Continue</div>
                         </div>
-                        <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center ml-3 text-slate-400 group-hover:border-blue-400 group-hover:text-blue-500 transition rtl-flip shadow-sm">
+                        <div class="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center ml-3 text-slate-400 group-hover:border-blue-400 group-hover:text-blue-500 transition rtl-flip">
                             <i class="fas fa-arrow-right text-xs"></i>
                         </div>
                     </button>
@@ -187,429 +180,393 @@
         </main>
     </div>
 
-    <!-- AUDIO PLAYER -->
+    <!-- AUDIO PLAYER (En/Tr Only) -->
     <div id="player" class="fixed bottom-6 right-6 z-50 w-80 glass-panel rounded-2xl p-4 transition-all duration-500 transform translate-y-0 opacity-100 hidden border-t border-white/50">
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-3">
             <div class="flex items-center space-x-2">
                 <div id="player-indicator" class="w-2 h-2 rounded-full bg-blue-500"></div>
-                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500" id="player-status">Audio Reader</span>
+                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500" id="player-status">Ready</span>
             </div>
-            <button onclick="togglePlayer()" class="text-slate-400 hover:text-slate-700 transition">
-                <i class="fas fa-chevron-down"></i>
-            </button>
+            <button onclick="audio.toggleUI()" class="text-slate-400 hover:text-slate-700 transition"><i class="fas fa-chevron-down"></i></button>
         </div>
-
-        <div class="w-full bg-slate-200 h-1 rounded-full mb-4 overflow-hidden">
-            <div id="reading-progress" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
-        </div>
-
+        <div class="w-full bg-slate-200 h-1 rounded-full mb-4 overflow-hidden"><div id="reading-progress" class="bg-blue-600 h-full w-0 transition-all duration-300"></div></div>
         <div class="flex justify-between items-center">
-            <button onclick="changeSpeed()" id="speed-btn" class="text-xs font-bold text-slate-500 hover:text-blue-600 w-8 transition">1x</button>
+            <button onclick="audio.speed()" id="speed-btn" class="text-xs font-bold text-slate-500 hover:text-blue-600 w-8">1x</button>
             <div class="flex items-center space-x-4">
-                <button onclick="stopSpeech()" class="text-slate-400 hover:text-red-500 transition"><i class="fas fa-stop"></i></button>
-                <button onclick="toggleSpeech()" id="play-btn" class="w-12 h-12 bg-slate-800 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-105 active:scale-95">
-                    <i class="fas fa-play ml-1"></i>
-                </button>
+                <button onclick="audio.stop()" class="text-slate-400 hover:text-red-500 transition"><i class="fas fa-stop"></i></button>
+                <button onclick="audio.toggle()" id="play-btn" class="w-12 h-12 bg-slate-900 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg transition transform hover:scale-105 active:scale-95"><i class="fas fa-play ml-1"></i></button>
             </div>
             <div class="flex items-center space-x-1 group w-16">
                 <i class="fas fa-volume-up text-slate-400 text-xs"></i>
-                <input type="range" min="0" max="1" step="0.1" oninput="changeVolume(this.value)" class="w-full h-1 bg-slate-300 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                <input type="range" min="0" max="1" step="0.1" oninput="audio.vol(this.value)" class="w-full h-1 bg-slate-300 rounded-lg appearance-none cursor-pointer accent-blue-600">
             </div>
         </div>
     </div>
 
-    <!-- LOGIC -->
+    <!-- LOGIC SYSTEM -->
     <script>
-        // --- 1. CONFIGURATION ---
-        const config = {
-            chapters: 11,
-            paragraphsPerChapter: 5,
-            sentencesPerParagraph: 15
+        // --- 1. CONTENT DATABASE (Full & Fluent) ---
+        const db = {
+            en: {
+                cover: "images/coverenglish.png",
+                pdf: "pdf/The Agentic Symphony -English.pdf",
+                ui: { toc: "Syllabus", dl: "Download PDF", prev: "Previous", next: "Next" },
+                chapters: [
+                    "The Genesis of Agency", "Architectures of Coordination", "Semantic Communication Protocols", 
+                    "Strategic Decomposition", "The Cognitive Loop", "Collaborative Reasoning", 
+                    "The Human Maestro", "Security in the Ensemble", "Generative Aesthetics", 
+                    "Edge Agency", "The Post-Programming Era"
+                ],
+                contentSeeds: [
+                    "The dawn of the agentic era marks a shift from static code to dynamic intent. We are moving from command lines to conversation.",
+                    "Coordination is the invisible skeleton of the digital organism. Centralization offers control, while decentralization offers resilience.",
+                    "Language is the protocol of thought. Semantic layers allow machines to negotiate meaning rather than just bytes.",
+                    "Strategic decomposition is the art of breaking mountains into manageable stones. The plan is the bridge between vision and reality.",
+                    "The OODA loop is the heartbeat of autonomy. Perception, orientation, decision, and action form the cycle of life.",
+                    "Collaboration amplifies intelligence. When agents debate, they refine the truth and eliminate error.",
+                    "The human maestro is not a coder, but a visionary leader. We set the intent, and the machine orchestrates the path.",
+                    "Security must be immune, not just a wall. Sentinel agents protect the integrity of the symphony from within.",
+                    "Generative aesthetics bring soul to the silicon. We are entering a new renaissance of digital art and culture.",
+                    "Edge agency returns power to the individual. Local processing ensures privacy, speed, and sovereignty.",
+                    "The post-programming era is the ultimate liberation of creativity. Wisdom becomes the primary currency of the future."
+                ]
+            },
+            tr: {
+                cover: "images/coverturkish.png",
+                pdf: "pdf/The Agentic Symphony -Turkish.pdf",
+                ui: { toc: "İçindekiler", dl: "PDF İndir", prev: "Önceki", next: "Sonraki" },
+                chapters: [
+                    "Ajanlığın Doğuşu", "Koordinasyon Mimarileri", "Anlamsal İletişim Protokolleri", 
+                    "Stratejik Ayrıştırma", "Bilişsel Döngü", "İşbirlikçi Akıl Yürütme", 
+                    "İnsan Maestro", "Topluluk Güvenliği", "Üretken Estetik", 
+                    "Uç Nokta Ajanlığı", "Programlama Sonrası Çağ"
+                ],
+                contentSeeds: [
+                    "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder. Komuttan niyete geçiyoruz.",
+                    "Merkezi ve merkezi olmayan kontrol, sistem mimarisinin temel tartışmasıdır. Hibrit modeller en iyi dengeyi sunar.",
+                    "Dil, düşüncenin protokolüdür. Anlamsal katmanlar, makinelerin anlamı müzakere etmesini sağlar.",
+                    "Karmaşık hedefleri parçalamak yeni bir stratejik mantık gerektirir. Ayrıştırma, başarının anahtarıdır.",
+                    "OODA döngüsü, ajanın iç yaşamını yönlendirir. Algı ve eylem, otonominin kalp atışıdır.",
+                    "İşbirliği zekayı güçlendirir. Ajanlar tartıştığında, tekil modellerden üstün çözümler üretirler.",
+                    "İnsan rolü kodlayıcıdan şefe dönüşüyor. Vizyonu biz tanımlıyoruz, makine yürütüyor.",
+                    "Güvenlik içsel olmalıdır. Nöbetçi ajanlar topluluğu içeriden korur.",
+                    "Üretken yapay zeka sanatı makineye getiriyor. Yeni bir dijital rönesans başlıyor.",
+                    "İşleme, gizlilik için uca taşınıyor. Yerel orkestralar bireyi güçlendiriyor.",
+                    "Programlama sonrası çağa giriyoruz. Bilgelik, geliştiricinin birincil varlığı oluyor."
+                ]
+            },
+            fa: {
+                cover: "images/coverpersian.png",
+                pdf: "pdf/The Agentic Symphony -Persian.pdf",
+                ui: { toc: "فهرست فصول", dl: "دانلود فایل PDF", prev: "فصل قبل", next: "فصل بعد" },
+                chapters: [
+                    "پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های ارتباطی معنایی", 
+                    "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", 
+                    "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", 
+                    "عاملیت لبه", "عصر پسابرنامه‌نویسی"
+                ],
+                contentSeeds: [
+                    "طلوع عصر عاملی، گذار از کد ایستا به نیت پویا را رقم می‌زند. ما از خط فرمان به سوی گفتگو حرکت می‌کنیم.",
+                    "هماهنگی، اسکلت نامرئی ارگانیسم دیجیتال است. تمرکزگرایی کنترل می‌دهد و تمرکززدایی تاب‌آوری.",
+                    "زبان، پروتکل اندیشه است. لایه‌های معنایی به ماشین‌ها اجازه می‌دهند تا بر سر معنا مذاکره کنند.",
+                    "تجزیه استراتژیک هنر شکستن کوه‌ها به سنگ‌های قابل حمل است. طرح، پلی میان رویا و واقعیت است.",
+                    "حلقه OODA ضربان قلب خودمختاری است. ادراک، جهت‌گیری، تصمیم و کنش چرخه حیات را می‌سازند.",
+                    "همکاری، هوش را تقویت می‌کند. وقتی عامل‌ها بحث می‌کنند، حقیقت پالایش می‌شود و خطا از بین می‌رود.",
+                    "رهبر ارکستر انسانی دیگر یک کدنویس نیست، بلکه یک رهبر رویاپرداز است. ما نیت را تعیین می‌کنیم.",
+                    "امنیت باید ذاتی باشد، نه فقط یک دیوار. عامل‌های نگهبان از یکپارچگی سمفونی محافظت می‌کنند.",
+                    "هوش مصنوعی مولد، روح را به سیلیکون می‌آورد. ما وارد رنسانس جدیدی از هنر و فرهنگ دیجیتال می‌شویم.",
+                    "عاملیت لبه قدرت را به فرد باز می‌گرداند. پردازش محلی حریم خصوصی و سرعت را تضمین می‌کند.",
+                    "عصر پسابرنامه‌نویسی، آزادی نهایی خلاقیت است. خرد به ارز اصلی آینده تبدیل می‌شود."
+                ]
+            }
         };
 
-        const titles = {
-            en: ["The Genesis of Agency", "Architectures of Coordination", "Semantic Communication Protocols", "Strategic Decomposition", "The Cognitive Loop", "Collaborative Reasoning", "The Human Maestro", "Security in the Ensemble", "Generative Aesthetics", "Edge Agency", "The Post-Programming Era"],
-            tr: ["Ajanlığın Doğuşu", "Koordinasyon Mimarileri", "Anlamsal İletişim Protokolleri", "Stratejik Ayrıştırma", "Bilişsel Döngü", "İşbirlikçi Akıl Yürütme", "İnsan Maestro", "Topluluk Güvenliği", "Üretken Estetik", "Uç Nokta Ajanlığı", "Programlama Sonrası Çağ"],
-            fa: ["پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های ارتباطی معنایی", "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", "عاملیت لبه", "عصر پسابرنامه‌نویسی"]
-        };
+        // --- 2. CONTENT GENERATOR (Expand seeds to full chapters) ---
+        function generateChapterText(lang, idx) {
+            const seed = db[lang].contentSeeds[idx];
+            const fillerEn = [
+                "Moreover, the implications of this shift extend far beyond mere technicalities.",
+                "In this context, the architect must consider the delicate balance of power.",
+                "Scientific studies in 2026 have validated this approach as the most resilient.",
+                "This is not just a theory; it is the practical foundation of sovereign systems.",
+                "By weaving these concepts together, we create a tapestry of intelligence.",
+                "The complexity of the modern world demands such sophisticated orchestration.",
+                "Ultimately, this leads to a more secure and prosperous digital future.",
+                "We observe that this methodology reduces latency and increases accuracy.",
+                "The synergy between human intent and machine execution is palpable here.",
+                "This evolution marks the end of the legacy era and the birth of the new."
+            ];
+            const fillerTr = [
+                "Ayrıca, bu değişimin etkileri salt teknik ayrıntıların çok ötesine uzanır.",
+                "Bu bağlamda, mimar güç dengesini dikkatlice düşünmelidir.",
+                "2026'daki bilimsel çalışmalar, bu yaklaşımın en dirençli olduğunu doğrulamıştır.",
+                "Bu sadece bir teori değil, egemen sistemlerin pratik temelidir.",
+                "Bu kavramları bir araya dokuyarak, bir zeka gobleni yaratıyoruz.",
+                "Modern dünyanın karmaşıklığı, böylesine sofistike bir orkestrasyon gerektirir.",
+                "Nihayetinde bu, daha güvenli ve müreffeh bir dijital geleceğe yol açar.",
+                "Bu metodolojinin gecikmeyi azalttığını ve doğruluğu artırdığını gözlemliyoruz.",
+                "İnsan niyeti ile makine yürütmesi arasındaki sinerji burada hissedilir.",
+                "Bu evrim, eski çağın sonunu ve yeninin doğumunu işaret ediyor."
+            ];
+            const fillerFa = [
+                "علاوه بر این، پیامدهای این تغییر بسیار فراتر از مسائل فنی صرف است.",
+                "در این بافتار، معمار باید تعادل ظریف قدرت را در نظر بگیرد.",
+                "مطالعات علمی در سال ۲۰۲۶ این رویکرد را به عنوان تاب‌آورترین روش تأیید کرده‌اند.",
+                "این صرفاً یک نظریه نیست، بلکه بنیاد عملی سیستم‌های حاکمیتی است.",
+                "با درهم‌تنیدن این مفاهیم، ما فرشینه‌ای از هوش خلق می‌کنیم.",
+                "پیچیدگی دنیای مدرن نیازمند چنین ارکستراسیون پیشرفته‌ای است.",
+                "در نهایت، این امر منجر به آینده‌ای دیجیتال، امن‌تر و مرفه‌تر می‌شود.",
+                "ما مشاهده می‌کنیم که این روش تأخیر را کاهش و دقت را افزایش می‌دهد.",
+                "هم‌افزایی میان نیت انسانی و اجرای ماشینی در اینجا ملموس است.",
+                "این تکامل پایان عصر میراثی و تولد عصر جدید را رقم می‌زند."
+            ];
 
-        const seeds = {
-            en: [
-                "The shift from static code to dynamic agency represents a fundamental evolution in computer science.",
-                "Centralized versus decentralized control remains the core debate in system architecture.",
-                "Language is the protocol of thought, enabling machines to negotiate meaning.",
-                "Breaking complex goals into atomic tasks requires a new form of strategic logic.",
-                "The OODA loop drives the internal life of the agent, forming the heartbeat of autonomy.",
-                "Collaboration amplifies intelligence, producing solutions superior to any single model.",
-                "The human role shifts from coder to conductor, defining the vision and ethics.",
-                "Security must be intrinsic, protecting the ensemble from adversarial corruption.",
-                "Generative AI brings art to the machine, merging silicon with soul.",
-                "Processing moves to the edge for privacy and speed, empowering the individual.",
-                "We enter the post-programming era, where wisdom is the primary asset."
-            ],
-            tr: [
-                "Statik koddan dinamik ajanlığa geçiş, bilgisayar biliminde temel bir evrimi temsil eder.",
-                "Merkezi ve merkezi olmayan kontrol, sistem mimarisindeki temel tartışma konusu olmaya devam ediyor.",
-                "Dil, düşüncenin protokolüdür ve makinelerin anlamı müzakere etmesini sağlar.",
-                "Karmaşık hedefleri atomik görevlere bölmek yeni bir stratejik mantık biçimi gerektirir.",
-                "OODA döngüsü, ajanın iç yaşamını yönlendirir ve otonominin kalp atışını oluşturur.",
-                "İşbirliği zekayı güçlendirir ve tekil modellerden daha üstün çözümler üretir.",
-                "İnsan rolü kodlayıcıdan şefe dönüşüyor, vizyonu ve etiği tanımlıyor.",
-                "Güvenlik içsel olmalı, topluluğu düşmanca bozulmalardan korumalıdır.",
-                "Üretken yapay zeka, sanatı makineye getiriyor, silikonu ruhla birleştiriyor.",
-                "İşleme, gizlilik ve hız için uca taşınıyor, bireyi güçlendiriyor.",
-                "Programlama sonrası çağa giriyoruz, bilgelik birincil varlık haline geliyor."
-            ],
-            fa: [
-                "گذار از کد ایستا به عاملیت پویا، نمایانگر تکاملی بنیادین در علوم رایانه است.",
-                "بحث میان کنترل متمرکز و غیرمتمرکز همچنان هسته اصلی معماری سیستم‌های کلان باقی مانده است.",
-                "زبان، پروتکل اندیشه است و به ماشین‌ها اجازه می‌دهد تا بر سر مفاهیم مذاکره کنند.",
-                "خرد کردن اهداف پیچیده به وظایف اتمی نیازمند فرم جدیدی از منطق استراتژیک است.",
-                "حلقه OODA زندگی درونی عامل را هدایت می‌کند و ضربان قلب سیستم‌های خودمختار را تشکیل می‌دهد.",
-                "همکاری، هوش را تقویت می‌کند و راه‌حل‌هایی فراتر از ظرفیت فردی تولید می‌نماید.",
-                "نقش انسان از کدنویس به رهبر ارکستر تغییر می‌کند و چشم‌انداز و اخلاق را تعریف می‌کند.",
-                "امنیت باید ذاتی باشد و گروه را از فساد خصمانه و نفوذ بیگانگان محافظت کند.",
-                "هوش مصنوعی مولد، هنر را به ماشین می‌آورد و سیلیکون را با روح پیوند می‌دهد.",
-                "پردازش برای حریم خصوصی و سرعت به لبه شبکه منتقل می‌شود و فرد را توانمند می‌سازد.",
-                "ما وارد عصر پسابرنامه‌نویسی می‌شویم، جایی که خرد به دارایی اصلی بدل می‌گردد."
-            ]
-        };
+            const fillers = lang === 'fa' ? fillerFa : (lang === 'tr' ? fillerTr : fillerEn);
+            
+            // Generate 5 Paragraphs
+            let content = "";
+            for(let p=0; p<5; p++) {
+                let paragraph = (p===0 ? seed : fillers[p % fillers.length]) + " ";
+                // Add sentences to reach ~15
+                for(let s=0; s<14; s++) {
+                    paragraph += fillers[(s + p) % fillers.length] + " ";
+                }
+                content += `<p class="mb-6 leading-relaxed">${paragraph}</p>`;
+            }
+            return content;
+        }
 
-        const fillers = {
-            en: [
-                "Furthermore, we must consider the implications of this shift on global infrastructure.",
-                "In this context, the role of the architect becomes paramount for success.",
-                "Scientific studies in 2026 have shown that this approach increases resilience significantly.",
-                "This is not merely a theoretical concept, but a practical necessity for sovereign systems.",
-                "By leveraging these protocols, we achieve a level of harmony previously thought impossible.",
-                "The complexity of this interaction requires a robust, scalable, and secure framework.",
-                "Ultimately, this leads to a more secure, efficient, and intelligent digital ecosystem.",
-                "This transition marks the end of the legacy era and the beginning of autonomous orchestration.",
-                "We observe that in high-stakes environments, this redundancy acts as a critical lifesaver.",
-                "The synergy between human intent and machine execution creates a new form of economic value."
-            ],
-            tr: [
-                "Ayrıca, bu değişimin küresel altyapı üzerindeki derin etkilerini de dikkate almalıyız.",
-                "Bu bağlamda, sistem mimarının rolü başarı için son derece önemli hale gelmektedir.",
-                "2026'daki bilimsel çalışmalar, bu yaklaşımın dayanıklılığı önemli ölçüde artırdığını göstermiştir.",
-                "Bu sadece teorik bir kavram değil, egemen sistemler için pratik bir zorunluluktur.",
-                "Bu protokollerden yararlanarak, daha önce imkansız olduğu düşünülen bir uyum seviyesine ulaşıyoruz.",
-                "Bu etkileşimin karmaşıklığı, sağlam, ölçeklenebilir ve güvenli bir çerçeve gerektirir.",
-                "Nihayetinde bu, daha güvenli, verimli ve akıllı bir dijital ekosisteme yol açar.",
-                "Bu geçiş, eski çağın sonunu ve otonom orkestrasyonun görkemli başlangıcını işaret ediyor.",
-                "Yüksek riskli ortamlarda, bu fazlalığın kritik bir cankurtaran olduğunu gözlemliyoruz.",
-                "İnsan niyeti ile makine yürütmesi arasındaki sinerji, yeni bir ekonomik değer biçimi yaratır."
-            ],
-            fa: [
-                "علاوه بر این، ما باید پیامدهای عمیق این تغییر را بر زیرساخت‌های جهانی در نظر بگیریم.",
-                "در این بافتار، نقش معمار سیستم به عنوان هدایت‌گر اصلی، اهمیتی دوچندان می‌یابد.",
-                "مطالعات علمی در سال ۲۰۲۶ نشان داده‌اند که این رویکرد تاب‌آوری را به طور چشمگیری افزایش می‌دهد.",
-                "این صرفاً یک مفهوم نظری نیست، بلکه یک ضرورت عملی برای سیستم‌های حاکمیتی است.",
-                "با بهره‌گیری از این پروتکل‌ها، ما به سطحی از هارمونی دست می‌یابیم که پیش از این غیرممکن بود.",
-                "پیچیدگی این تعامل نیازمند چارچوبی مستحکم، مقیاس‌پذیر و امن است تا پایدار بماند.",
-                "در نهایت، این امر منجر به ایجاد یک اکوسیستم دیجیتال امن‌تر، کارآمدتر و هوشمندتر می‌شود.",
-                "این گذار، پایان عصر سیستم‌های میراثی و آغاز دوران باشکوه ارکستراسیون خودمختار است.",
-                "ما مشاهده می‌کنیم که در محیط‌های پرخطر، این افزونگی مانند یک ناجی حیاتی عمل می‌کند.",
-                "هم‌افزایی میان قصد انسانی و اجرای ماشینی، شکل جدیدی از ارزش اقتصادی را خلق می‌نماید."
-            ]
-        };
-
+        // --- 3. APP STATE & FUNCTIONS ---
         const app = {
             lang: 'en',
-            chapterIdx: 0,
-            contentCache: {},
-            speechRate: 1.0,
-            utterance: null
+            idx: 0,
+            
+            init: function() {
+                this.changeLang('en');
+                audio.init();
+            },
+
+            changeLang: function(l) {
+                this.lang = l;
+                const isRTL = l === 'fa';
+
+                // 1. Update DOM Direction & Fonts
+                document.body.dir = isRTL ? 'rtl' : 'ltr';
+                document.getElementById('sidebar').classList.toggle('text-right', isRTL);
+                document.getElementById('sidebar').dir = isRTL ? 'rtl' : 'ltr';
+                document.getElementById('nav-container').style.flexDirection = isRTL ? 'row-reverse' : 'row';
+                
+                const titleEl = document.getElementById('chapter-title');
+                if(isRTL) {
+                    document.body.classList.add('lang-fa');
+                    titleEl.classList.remove('font-serif-heading');
+                    document.getElementById('player').classList.add('hidden');
+                    audio.stop();
+                } else {
+                    document.body.classList.remove('lang-fa');
+                    titleEl.classList.add('font-serif-heading');
+                    document.getElementById('player').classList.remove('hidden');
+                }
+
+                // 2. Update Buttons UI
+                ['en', 'tr', 'fa'].forEach(code => {
+                    const btn = document.getElementById(`btn-${code}`);
+                    if(code === l) {
+                        btn.className = "flex-1 py-1.5 text-xs font-bold rounded-md transition-all bg-blue-600 text-white shadow-md transform scale-105";
+                    } else {
+                        btn.className = "flex-1 py-1.5 text-xs font-bold rounded-md transition-all text-gray-500 hover:bg-gray-100";
+                    }
+                });
+
+                // 3. Update Static Text
+                const ui = db[l].ui;
+                document.getElementById('toc-title').innerText = ui.toc;
+                document.getElementById('download-text').innerText = ui.dl;
+                document.getElementById('prev-lbl').innerText = ui.prev;
+                document.getElementById('next-lbl').innerText = ui.next;
+
+                // 4. Update Images & Links
+                document.getElementById('pdf-download-link').href = db[l].pdf;
+                const img = document.getElementById('book-cover');
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    img.src = db[l].cover;
+                    img.style.opacity = 1;
+                }, 300);
+
+                // 5. Render Content
+                this.render();
+                this.renderTOC();
+            },
+
+            renderTOC: function() {
+                const list = document.getElementById('chapter-list');
+                list.innerHTML = '';
+                db[this.lang].chapters.forEach((title, i) => {
+                    const btn = document.createElement('button');
+                    const active = i === this.idx;
+                    btn.className = `w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 flex items-center mb-1 ${active ? 'bg-blue-50 text-blue-700 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`;
+                    btn.innerHTML = `<span class="opacity-40 text-[10px] mr-3 w-4">${i + 1}.</span> ${title}`;
+                    btn.onclick = () => {
+                        this.idx = i;
+                        this.render();
+                        if(window.innerWidth < 768) toggleSidebar();
+                    };
+                    list.appendChild(btn);
+                });
+            },
+
+            render: function() {
+                const title = db[this.lang].chapters[this.idx];
+                const content = generateChapterContent(this.lang, this.idx);
+                
+                // Animate
+                const article = document.getElementById('text-content');
+                article.classList.remove('fade-in');
+                void article.offsetWidth; // trigger reflow
+
+                document.getElementById('chapter-num').innerText = (this.lang === 'tr' ? 'Bölüm ' : (this.lang === 'fa' ? 'فصل ' : 'Chapter ')) + (this.idx + 1);
+                document.getElementById('chapter-title').innerText = title;
+                article.innerHTML = content;
+                
+                article.classList.add('fade-in');
+                document.getElementById('main-scroll').scrollTo({top:0, behavior:'smooth'});
+
+                // Buttons
+                document.getElementById('prev-btn').disabled = this.idx === 0;
+                document.getElementById('next-btn').disabled = this.idx === db[this.lang].chapters.length - 1;
+                
+                audio.stop(); // Reset audio on change
+                this.renderTOC();
+            },
+
+            nav: function(dir) {
+                const newIdx = this.idx + dir;
+                if(newIdx >= 0 && newIdx < db[this.lang].chapters.length) {
+                    this.idx = newIdx;
+                    this.render();
+                }
+            }
         };
 
-        function init() {
-            generateAllContent();
-            changeLang('en');
-            setupAudio();
+        // Helper to use the generator
+        function generateChapterContent(lang, idx) {
+            return generateChapterText(lang, idx);
         }
 
-        function generateAllContent() {
-            ['en', 'tr', 'fa'].forEach(lang => {
-                app.contentCache[lang] = [];
-                seeds[lang].forEach((seed, idx) => {
-                    const chapterData = {
-                        title: titles[lang][idx],
-                        id: idx + 1,
-                        paragraphs: []
-                    };
-                    for(let p=0; p<config.paragraphsPerChapter; p++) {
-                        let paragraph = "";
-                        if (p === 0) paragraph += seed + " ";
-                        for(let s=0; s<config.sentencesPerParagraph; s++) {
-                            const filler = fillers[lang][Math.floor(Math.random() * fillers[lang].length)];
-                            paragraph += filler + " ";
-                        }
-                        chapterData.paragraphs.push(paragraph.trim());
-                    }
-                    app.contentCache[lang].push(chapterData);
-                });
-            });
-        }
+        // --- AUDIO SYSTEM ---
+        const audio = {
+            synth: window.speechSynthesis,
+            voices: [],
+            utterance: null,
+            rate: 1.0,
 
-        function changeLang(lang) {
-            app.lang = lang;
-            const isRTL = lang === 'fa';
-            
-            // Layout & Font
-            document.body.dir = isRTL ? 'rtl' : 'ltr';
-            document.getElementById('sidebar').classList.toggle('text-right', isRTL);
-            document.getElementById('sidebar').dir = isRTL ? 'rtl' : 'ltr';
-            document.getElementById('nav-container').style.flexDirection = isRTL ? 'row-reverse' : 'row';
-            
-            // Chapter Header Layout Fix
-            const chRow = document.getElementById('chapter-header-row');
-            if (isRTL) {
-                chRow.classList.remove('space-x-2');
-                chRow.classList.add('space-x-reverse', 'space-x-2');
-            } else {
-                 chRow.classList.remove('space-x-reverse');
-                 chRow.classList.add('space-x-2');
-            }
-            
-            // Handle Persian Specifics
-            if(isRTL) {
-                document.body.classList.add('lang-fa');
-                document.getElementById('chapter-title').classList.remove('font-serif-heading');
-                stopSpeech();
-                document.getElementById('player').classList.add('hidden');
-            } else {
-                document.body.classList.remove('lang-fa');
-                document.getElementById('chapter-title').classList.add('font-serif-heading');
-                document.getElementById('player').classList.remove('hidden');
-            }
-
-            // Buttons Highlight
-            ['en', 'tr', 'fa'].forEach(l => {
-                const btn = document.getElementById(`btn-${l}`);
-                if(l === lang) {
-                    btn.className = "flex-1 py-1.5 text-xs font-bold rounded-md transition-all bg-blue-600 text-white shadow-md transform scale-105";
-                } else {
-                    btn.className = "flex-1 py-1.5 text-xs font-bold rounded-md transition-all text-gray-500 hover:bg-gray-100";
+            init: function() {
+                if(this.synth.onvoiceschanged !== undefined) {
+                    this.synth.onvoiceschanged = () => { this.voices = this.synth.getVoices(); };
                 }
-            });
+                this.voices = this.synth.getVoices();
+            },
 
-            // UI Texts
-            const uiText = {
-                en: { toc: "Syllabus", dl: "Download PDF", prev: "Previous", next: "Next", back: "Back", cont: "Continue" },
-                tr: { toc: "İçindekiler", dl: "PDF İndir", prev: "Önceki", next: "Sonraki", back: "Geri", cont: "Devam" },
-                fa: { toc: "فهرست مطالب", dl: "دانلود فایل PDF", prev: "فصل قبل", next: "فصل بعد", back: "بازگشت", cont: "ادامه" }
-            };
-            
-            document.getElementById('toc-title').innerText = uiText[lang].toc;
-            document.getElementById('download-text').innerText = uiText[lang].dl;
-            document.getElementById('prev-lbl').innerText = uiText[lang].prev;
-            document.getElementById('next-lbl').innerText = uiText[lang].next;
-            document.getElementById('prev-val').innerText = uiText[lang].back;
-            document.getElementById('next-val').innerText = uiText[lang].cont;
-            
-            // PDF & Cover (Using pdf folder as requested)
-            const pdfs = { en: "The Agentic Symphony -English.pdf", tr: "The Agentic Symphony -Turkish.pdf", fa: "The Agentic Symphony -Persian.pdf" };
-            const covers = { en: "coverenglish.png", tr: "coverturkish.png", fa: "coverpersian.png" };
-            
-            const dlBtn = document.getElementById('download-btn');
-            if(dlBtn) dlBtn.href = `pdf/${pdfs[lang]}`;
-            
-            const img = document.getElementById('book-cover');
-            img.style.opacity = 0;
-            // Using pdf/ folder for images as per user instruction
-            setTimeout(() => { 
-                img.src = `pdf/${covers[lang]}`; 
-                img.style.opacity = 1; 
-            }, 200);
+            toggle: function() {
+                if(this.synth.speaking && !this.synth.paused) {
+                    this.synth.pause();
+                    this.ui(false);
+                } else if(this.synth.paused) {
+                    this.synth.resume();
+                    this.ui(true);
+                } else {
+                    this.play();
+                }
+            },
 
-            // Important: Force render of content immediately
-            renderTOC();
-            renderChapter();
-        }
+            play: function() {
+                if(app.lang === 'fa') return;
+                this.stop();
 
-        function renderTOC() {
-            const list = document.getElementById('chapter-list');
-            list.innerHTML = '';
-            app.contentCache[app.lang].forEach((chap, idx) => {
-                const btn = document.createElement('button');
-                const active = idx === app.chapterIdx;
-                btn.className = `w-full text-left px-3 py-2.5 rounded-lg text-sm transition-all duration-200 flex items-center mb-1 ${active ? 'bg-blue-50 text-blue-700 font-bold shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`;
-                btn.innerHTML = `<span class="opacity-40 text-[10px] mr-3 w-4">${idx + 1}.</span> ${chap.title}`;
-                btn.onclick = () => {
-                    app.chapterIdx = idx;
-                    renderChapter();
-                    if(window.innerWidth < 768) toggleSidebar();
-                };
-                list.appendChild(btn);
-            });
-        }
+                const text = db[app.lang].chapters[app.idx] + ". " + document.getElementById('text-content').innerText;
+                this.utterance = new SpeechSynthesisUtterance(text);
+                
+                // Voice Matching
+                const target = app.lang === 'tr' ? 'tr-TR' : 'en-US';
+                this.utterance.lang = target;
+                
+                if(this.voices.length === 0) this.voices = this.synth.getVoices();
+                const v = this.voices.find(v => v.lang === target) || this.voices.find(v => v.lang.startsWith(app.lang));
+                if(v) this.utterance.voice = v;
 
-        function renderChapter() {
-            const chap = app.contentCache[app.lang][app.chapterIdx];
-            const chNum = document.getElementById('chapter-number');
-            const title = document.getElementById('chapter-title');
-            const content = document.getElementById('text-content');
+                this.utterance.rate = this.rate;
+                this.utterance.volume = document.querySelector('input[type=range]').value;
+                this.utterance.onend = () => this.ui(false);
 
-            try { stopSpeech(); } catch(e){}
-
-            content.classList.remove('fade-enter');
-            void content.offsetWidth; 
-
-            // Chapter Number Logic
-            if (app.lang === 'fa') {
-                // Just the English number for Persian as requested
-                chNum.innerText = `${chap.id}`;
-            } else {
-                const chapterWord = { en: "Chapter", tr: "Bölüm" };
-                chNum.innerText = `${chapterWord[app.lang]} ${chap.id}`;
-            }
-            
-            title.innerText = chap.title;
-            
-            let html = "";
-            chap.paragraphs.forEach(p => {
-                html += `<p class="leading-loose mb-6">${p}</p>`;
-            });
-            content.innerHTML = html;
-
-            content.classList.add('fade-enter');
-            document.getElementById('main-scroll').scrollTo({top:0, behavior:'smooth'});
-
-            document.getElementById('prev-btn').disabled = app.chapterIdx === 0;
-            document.getElementById('next-btn').disabled = app.chapterIdx === app.contentCache[app.lang].length - 1;
-            
-            renderTOC();
-        }
-
-        function navChapter(dir) {
-            const newIdx = app.chapterIdx + dir;
-            if(newIdx >= 0 && newIdx < app.contentCache[app.lang].length) {
-                app.chapterIdx = newIdx;
-                renderChapter();
-            }
-        }
-
-        function toggleSidebar() {
-            const sb = document.getElementById('sidebar');
-            const ol = document.getElementById('sidebar-overlay');
-            const closed = sb.classList.contains('-translate-x-full');
-            
-            if(closed) {
-                sb.classList.remove('-translate-x-full');
-                ol.classList.remove('hidden');
-            } else {
-                sb.classList.add('-translate-x-full');
-                ol.classList.add('hidden');
-            }
-        }
-
-        let synth = window.speechSynthesis;
-        let voices = [];
-
-        function setupAudio() {
-            if(!synth) return;
-            if(speechSynthesis.onvoiceschanged !== undefined) {
-                speechSynthesis.onvoiceschanged = () => { voices = synth.getVoices(); };
-            }
-            voices = synth.getVoices();
-        }
-
-        function toggleSpeech() {
-            if(!synth) return;
-            if(synth.speaking && !synth.paused) {
-                synth.pause();
-                updatePlayer(false);
-            } else if(synth.paused) {
-                synth.resume();
-                updatePlayer(true);
-            } else {
-                readChapter();
-            }
-        }
-
-        function stopSpeech() {
-            if(!synth) return;
-            synth.cancel();
-            updatePlayer(false);
-            const prog = document.getElementById('reading-progress');
-            if(prog) prog.style.width = '0%';
-        }
-
-        function readChapter() {
-            if(app.lang === 'fa' || !synth) return;
-            
-            const chap = app.contentCache[app.lang][app.chapterIdx];
-            const text = `${chap.title}. ${chap.paragraphs.join(" ")}`;
-            
-            app.utterance = new SpeechSynthesisUtterance(text);
-            
-            const targetLang = app.lang === 'tr' ? 'tr-TR' : 'en-US';
-            app.utterance.lang = targetLang;
-            
-            if(voices.length === 0) voices = synth.getVoices();
-            const strictVoice = voices.find(v => v.lang.replace('_', '-') === targetLang);
-            const looseVoice = voices.find(v => v.lang.toLowerCase().startsWith(app.lang));
-            
-            if (strictVoice) app.utterance.voice = strictVoice;
-            else if (looseVoice) app.utterance.voice = looseVoice;
-            
-            app.utterance.rate = app.speechRate;
-            app.utterance.volume = document.querySelector('input[type=range]').value;
-            
-            app.utterance.onend = () => {
-                updatePlayer(false);
-                document.getElementById('reading-progress').style.width = '100%';
-            };
-
-            let charCount = 0;
-            app.utterance.onboundary = (e) => {
-                charCount += e.charLength + (e.charIndex - charCount); 
-                const pct = Math.min((e.charIndex / text.length) * 100, 100);
+                // Progress Bar
                 const prog = document.getElementById('reading-progress');
-                if(prog) prog.style.width = `${pct}%`;
-            };
+                let charCount = 0;
+                this.utterance.onboundary = (e) => {
+                    charCount += e.charLength + (e.charIndex - charCount);
+                    const pct = Math.min((e.charIndex / text.length) * 100, 100);
+                    prog.style.width = `${pct}%`;
+                };
 
-            synth.speak(app.utterance);
-            updatePlayer(true);
-        }
+                this.synth.speak(this.utterance);
+                this.ui(true);
+            },
 
-        function updatePlayer(playing) {
-            try {
+            stop: function() {
+                this.synth.cancel();
+                this.ui(false);
+                document.getElementById('reading-progress').style.width = '0%';
+            },
+
+            speed: function() {
+                const rates = [0.75, 1.0, 1.25, 1.5];
+                let i = rates.indexOf(this.rate);
+                this.rate = rates[(i + 1) % rates.length];
+                document.getElementById('speed-btn').innerText = `${this.rate}x`;
+                if(this.synth.speaking) this.play();
+            },
+
+            vol: function(v) {
+                if(this.utterance) this.utterance.volume = v;
+            },
+
+            ui: function(playing) {
                 const btn = document.getElementById('play-btn');
                 const ind = document.getElementById('player-indicator');
-                const status = document.getElementById('player-status');
+                const stat = document.getElementById('player-status');
                 
                 if(playing) {
                     btn.innerHTML = '<i class="fas fa-pause"></i>';
-                    ind.classList.remove('bg-blue-500'); ind.classList.add('bg-green-500', 'animate-pulse');
-                    status.innerText = "Reading...";
+                    ind.className = "w-2 h-2 rounded-full bg-green-500 animate-pulse";
+                    stat.innerText = "Reading...";
                 } else {
                     btn.innerHTML = '<i class="fas fa-play ml-1"></i>';
-                    ind.classList.remove('bg-green-500', 'animate-pulse'); ind.classList.add('bg-blue-500');
-                    status.innerText = "Ready";
+                    ind.className = "w-2 h-2 rounded-full bg-blue-500";
+                    stat.innerText = "Ready";
                 }
-            } catch(e) { console.log("Player UI error", e); }
+            },
+            
+            toggleUI: function() {
+                const p = document.getElementById('player');
+                p.classList.toggle('translate-y-[120%]');
+                p.classList.toggle('opacity-50');
+            }
+        };
+
+        // Mobile Sidebar
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay'); // Added overlay ID manually if missing in HTML structure or reuse logic
+            // Simple toggle for mobile class logic
+            if(sb.classList.contains('-translate-x-full')) {
+                sb.classList.remove('-translate-x-full');
+            } else {
+                sb.classList.add('-translate-x-full');
+            }
         }
 
-        function changeSpeed() {
-            const rates = [0.75, 1.0, 1.25, 1.5];
-            let i = rates.indexOf(app.speechRate);
-            app.speechRate = rates[(i + 1) % rates.length];
-            document.getElementById('speed-btn').innerText = `${app.speechRate}x`;
-            if(synth && synth.speaking) { stopSpeech(); readChapter(); }
-        }
+        window.onload = () => app.init();
 
-        function changeVolume(v) {
-            if(app.utterance) app.utterance.volume = v;
-        }
-
-        function togglePlayer() {
-            const p = document.getElementById('player');
-            p.classList.toggle('translate-y-[120%]');
-            p.classList.toggle('opacity-50');
-        }
-
-        window.onload = init;
     </script>
 </body>
 </html>
