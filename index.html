@@ -30,66 +30,78 @@
         .rtl .flip-icon { transform: scaleX(-1); }
         .rtl .text-justify { text-align: justify; }
 
-        /* Fixed Bottom Player for Mobile */
-        .player-bar {
+        /* Mini Player Style */
+        .mini-audio-widget {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-top: 1px solid #e2e8f0;
-            padding-bottom: env(safe-area-inset-bottom);
+            bottom: 20px;
+            right: 20px;
             z-index: 100;
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.08);
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 50px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .player-bar.active { transform: translateY(0); }
+        
+        .lang-fa .mini-audio-widget { right: auto; left: 20px; flex-direction: row-reverse; }
 
-        /* Padding to prevent text from going under the player */
-        .safe-bottom { padding-bottom: 120px; }
-        @media (max-width: 768px) {
-            .safe-bottom { padding-bottom: 160px; }
-        }
+        /* Scroll Area Padding */
+        .safe-bottom { padding-bottom: 100px; }
 
         /* Animations */
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Sidebar scroll area */
-        .sidebar-scroll { height: calc(100vh - 350px); overflow-y: auto; }
+        .sidebar-scroll { height: calc(100vh - 400px); overflow-y: auto; }
+        
+        /* Custom UI */
+        .download-bar {
+            background: #1e293b;
+            color: white;
+        }
+        
+        .book-p { margin-bottom: 1.5rem; line-height: 2.1; }
     </style>
 </head>
 <body class="antialiased text-slate-800">
 
-    <!-- Mobile Header -->
-    <header class="md:hidden fixed top-0 w-full z-40 bg-white border-b border-slate-200 h-16 flex justify-between items-center px-4">
-        <button onclick="ui.toggleSidebar()" class="text-slate-600 p-2"><i class="fas fa-bars text-xl"></i></button>
-        <span class="font-bold text-slate-800 serif">The Agentic Symphony</span>
-        <div class="w-8"></div>
-    </header>
+    <!-- TOP DOWNLOAD BAR -->
+    <div class="download-bar w-full py-3 px-6 flex flex-wrap justify-center gap-4 sticky top-0 z-50 shadow-md">
+        <span class="text-xs font-bold uppercase tracking-widest hidden sm:inline-flex items-center opacity-70">Download FULL PDF:</span>
+        <a id="dl-en" href="pdf/The Agentic Symphony -English.pdf" target="_blank" class="bg-blue-600 hover:bg-blue-500 text-[10px] font-extrabold px-4 py-1.5 rounded-full transition-all flex items-center gap-2">
+            <i class="fas fa-file-pdf"></i> ENGLISH
+        </a>
+        <a id="dl-tr" href="pdf/The Agentic Symphony -Turkish.pdf" target="_blank" class="bg-red-600 hover:bg-red-500 text-[10px] font-extrabold px-4 py-1.5 rounded-full transition-all flex items-center gap-2">
+            <i class="fas fa-file-pdf"></i> TÜRKÇE
+        </a>
+        <a id="dl-fa" href="pdf/The Agentic Symphony -Persian.pdf" target="_blank" class="bg-emerald-600 hover:bg-emerald-500 text-[10px] font-extrabold px-4 py-1.5 rounded-full transition-all flex items-center gap-2 fa-font">
+            <i class="fas fa-file-pdf"></i> فارسی (رایگان)
+        </a>
+    </div>
 
-    <div class="flex h-screen pt-16 md:pt-0">
+    <div class="flex h-screen">
         
         <!-- SIDEBAR -->
-        <aside id="sidebar" class="fixed md:relative z-50 w-80 h-full bg-white border-r border-slate-200 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none">
+        <aside id="sidebar" class="fixed md:relative z-50 w-72 h-full bg-white border-r border-slate-200 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none overflow-hidden">
             
             <!-- Author Profile -->
-            <div class="p-6 flex flex-col items-center bg-gradient-to-b from-slate-50 to-white relative border-b border-slate-100">
+            <div class="p-6 flex flex-col items-center bg-white relative border-b border-slate-100">
                 <button onclick="ui.toggleSidebar()" class="md:hidden absolute top-4 right-4 text-slate-400"><i class="fas fa-times"></i></button>
                 
-                <!-- Cover Image (Now from images/ folder) -->
-                <div class="w-28 h-40 mb-4 shadow-lg rounded-md overflow-hidden bg-gray-200 relative">
-                    <img id="cover-img" src="" class="w-full h-full object-cover transition-opacity duration-300 opacity-0" alt="Book Cover" onerror="this.src='https://via.placeholder.com/150x200?text=Cover'">
+                <!-- Dynamic Cover -->
+                <div class="w-32 h-44 mb-4 shadow-xl rounded-md overflow-hidden bg-slate-100 relative">
+                    <img id="cover-img" src="images/coverenglish.png" class="w-full h-full object-cover transition-opacity duration-500" alt="Book Cover">
                 </div>
 
-                <h1 id="author-name" class="text-md font-bold text-slate-900 serif text-center">Faramarz Kowsari</h1>
+                <h1 class="text-md font-extrabold text-slate-900 serif text-center">Faramarz Kowsari</h1>
                 <p class="text-[9px] font-bold text-blue-600 uppercase tracking-widest mt-1 text-center">Strategic AI Architect</p>
                 
-                <!-- Socials & Email -->
-                <div class="flex space-x-5 mt-4 text-slate-400">
+                <div class="flex space-x-4 mt-4 text-slate-400">
                     <a href="mailto:info@faramarzkowsari.com" class="hover:text-blue-600 transition" title="Email Author"><i class="fas fa-envelope text-lg"></i></a>
                     <a href="https://www.linkedin.com/in/faramarzkowsari" target="_blank" class="hover:text-blue-700 transition"><i class="fab fa-linkedin text-lg"></i></a>
                     <a href="https://play.google.com/store/search?q=Faramarz_Kowsari&c=books" target="_blank" class="hover:text-green-600 transition"><i class="fab fa-google-play text-lg"></i></a>
@@ -97,55 +109,55 @@
             </div>
 
             <!-- Language Switcher -->
-            <div class="p-4 border-b border-slate-100 bg-slate-50">
-                <div class="flex bg-white rounded-lg p-1 shadow-sm border border-slate-200">
-                    <button onclick="app.setLang('en')" id="btn-en" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all">ENG</button>
-                    <button onclick="app.setLang('tr')" id="btn-tr" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all">TUR</button>
-                    <button onclick="app.setLang('fa')" id="btn-fa" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all fa-font">فا</button>
-                </div>
+            <div class="p-3 border-b border-slate-100 bg-slate-50 flex gap-2">
+                <button onclick="app.setLang('en')" id="btn-en" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all">ENG</button>
+                <button onclick="app.setLang('tr')" id="btn-tr" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all">TUR</button>
+                <button onclick="app.setLang('fa')" id="btn-fa" class="flex-1 py-1.5 text-[10px] font-bold rounded transition-all fa-font">فا</button>
             </div>
 
-            <!-- Table of Contents Area -->
+            <!-- TOC -->
             <div class="flex-1 p-4 sidebar-scroll custom-scrollbar">
                 <h3 id="toc-header" class="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-3 px-2">Table of Contents</h3>
                 <div id="chapter-list" class="space-y-1"></div>
             </div>
 
-            <!-- Download Button (From pdf/ folder) -->
-            <div class="p-4 border-t border-slate-200 bg-white">
-                <a id="dl-link" href="#" target="_blank" class="flex items-center justify-center w-full py-3 bg-slate-900 text-white rounded-xl shadow-lg hover:bg-blue-600 active:scale-95 transition-all">
-                    <i class="fas fa-file-pdf mr-2"></i>
-                    <span id="dl-text" class="text-xs font-bold uppercase tracking-wide">Download PDF</span>
-                </a>
+            <!-- Footer Meta -->
+            <div class="p-4 text-[9px] text-slate-400 text-center uppercase tracking-widest border-t border-slate-50">
+                &copy; 2026 Strategic Intelligence
             </div>
         </aside>
 
-        <!-- MAIN READER -->
+        <!-- MAIN CONTAINER -->
         <main id="main-container" class="flex-1 overflow-y-auto bg-white relative w-full scroll-smooth">
-            <div class="max-w-3xl mx-auto px-6 py-8 md:py-16 safe-bottom">
+            <!-- Mobile Menu Toggle Floating -->
+            <button onclick="ui.toggleSidebar()" class="md:hidden fixed bottom-6 left-6 z-50 bg-white shadow-xl w-12 h-12 rounded-full border border-slate-200 text-slate-600">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="max-w-4xl mx-auto px-6 py-8 md:py-16 safe-bottom">
                 
                 <!-- Content Header -->
-                <div id="content-header" class="mb-10 border-b-2 border-slate-100 pb-6 fade-in">
+                <div id="content-header" class="mb-10 border-b border-slate-100 pb-8 fade-in">
                     <div id="chapter-meta" class="flex items-center space-x-2 mb-3 text-blue-600 flip-icon">
                         <span class="w-8 h-0.5 bg-blue-600"></span>
                         <span id="chapter-num" class="text-xs font-bold uppercase tracking-widest">Chapter 1</span>
                     </div>
-                    <h2 id="chapter-title" class="text-3xl md:text-5xl font-bold text-slate-900 serif leading-tight">The Genesis of Agency</h2>
+                    <h2 id="chapter-title" class="text-4xl md:text-5xl font-extrabold text-slate-900 serif leading-tight">The Genesis of Agency</h2>
                 </div>
 
                 <!-- Book Content -->
-                <article id="text-body" class="text-lg leading-loose text-slate-700 space-y-8 fade-in text-justify">
+                <article id="text-body" class="text-lg text-slate-700 space-y-2 fade-in text-justify">
                     <!-- Text generated by JS Engine -->
                 </article>
 
-                <!-- Chapter Navigation -->
+                <!-- Navigation -->
                 <div class="mt-16 pt-8 border-t border-slate-100 flex justify-between items-center fade-in">
                     <button onclick="app.nav(-1)" id="prev-btn" class="flex items-center px-4 py-2 rounded-lg text-slate-400 hover:text-blue-600 disabled:opacity-30 transition">
                         <i class="fas fa-arrow-left mr-2 flip-icon"></i>
-                        <span id="prev-text" class="text-xs font-bold uppercase tracking-wider">Prev</span>
+                        <span id="prev-text" class="text-xs font-bold uppercase">Prev</span>
                     </button>
                     <button onclick="app.nav(1)" id="next-btn" class="flex items-center px-4 py-2 rounded-lg text-slate-400 hover:text-blue-600 disabled:opacity-30 transition">
-                        <span id="next-text" class="text-xs font-bold uppercase tracking-wider">Next</span>
+                        <span id="next-text" class="text-xs font-bold uppercase">Next</span>
                         <i class="fas fa-arrow-right ml-2 flip-icon"></i>
                     </button>
                 </div>
@@ -153,57 +165,46 @@
         </main>
     </div>
 
-    <!-- AUDIO CONTROL BAR -->
-    <div id="audio-player" class="player-bar">
-        <div class="w-full bg-slate-200 h-1">
-            <div id="audio-progress" class="bg-blue-600 h-full w-0 transition-all duration-300"></div>
+    <!-- MINI PLAYER WIDGET -->
+    <div id="audio-player" class="mini-audio-widget hidden">
+        <div class="flex items-center gap-3 border-r pr-3 border-slate-200 rtl:border-r-0 rtl:border-l rtl:pl-3">
+            <button onclick="audio.toggle()" id="play-btn" class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition">
+                <i class="fas fa-play ml-0.5"></i>
+            </button>
+            <button onclick="audio.stop()" class="text-slate-400 hover:text-red-500"><i class="fas fa-stop text-xs"></i></button>
         </div>
-        
-        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex flex-col w-1/4 min-w-0">
-                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Digital Reader</span>
-                <span id="audio-status" class="text-[10px] font-bold text-slate-800 truncate">Ready</span>
-            </div>
-
-            <div class="flex items-center space-x-6">
-                <button onclick="audio.stop()" class="text-slate-400 hover:text-red-500 transition"><i class="fas fa-stop text-sm"></i></button>
-                
-                <button onclick="audio.toggle()" id="play-btn" class="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center shadow-xl active:scale-90 transition">
-                    <i class="fas fa-play ml-1"></i>
-                </button>
-
-                <button onclick="audio.speed()" id="speed-btn" class="text-[10px] font-extrabold text-slate-500 w-8 text-center hover:text-blue-600">1x</button>
-            </div>
-
-            <div class="w-1/4 flex justify-end">
-                <button onclick="audio.hide()" class="text-slate-400 p-2"><i class="fas fa-times text-sm"></i></button>
+        <div class="flex flex-col">
+            <span id="audio-status" class="text-[9px] font-bold text-slate-500 uppercase tracking-tighter">Listen Chapter</span>
+            <div class="flex items-center gap-4">
+                <button onclick="audio.speed()" id="speed-btn" class="text-[10px] font-extrabold text-blue-600">1x</button>
+                <div class="w-24 bg-slate-100 h-1 rounded-full overflow-hidden">
+                    <div id="audio-progress" class="bg-blue-500 h-full w-0 transition-all"></div>
+                </div>
             </div>
         </div>
+        <button onclick="audio.hide()" class="ml-2 text-slate-300 hover:text-slate-500"><i class="fas fa-times-circle"></i></button>
     </div>
 
-    <!-- SCRIPT ENGINE -->
+    <!-- LOGIC -->
     <script>
         const db = {
             en: {
-                pdf: "pdf/The Agentic Symphony -English.pdf",
                 cover: "images/coverenglish.png",
-                ui: { toc: "Syllabus", dl: "Download PDF", prev: "Prev", next: "Next" },
+                ui: { toc: "Chapters", dl: "Download", prev: "Prev", next: "Next" },
                 titles: ["The Genesis of Agency", "Architectures of Coordination", "Semantic Protocols", "Strategic Decomposition", "The Cognitive Loop", "Collaborative Reasoning", "The Human Maestro", "Security in the Ensemble", "Generative Aesthetics", "Edge Agency", "The Post-Programming Era"],
-                filler: "The evolution from static commands to agentic intent is a fundamental shift in our civilization. We are orchestrating digital symphonies where specialized agents perform as expert musicians. This transformation liberates human creativity from technical repetition."
+                filler: "The evolution from static commands to agentic intent is a fundamental shift in our civilization. We are orchestrating digital symphonies where specialized agents perform as expert musicians. This transformation liberates human creativity from technical repetition. The maestro's role is to define the goal while the machine manages the execution. Every agent in the orchestra brings a unique expertise to the ensemble. We are building a future where intelligence is collaborative and adaptive. This shift requires new protocols of communication and coordination. Resilience is achieved through decentralized decision making. The cognitive loop allows for continuous learning and alignment. Strategic AI is the cornerstone of national technological sovereignty."
             },
             tr: {
-                pdf: "pdf/The Agentic Symphony -Turkish.pdf",
                 cover: "images/coverturkish.png",
-                ui: { toc: "İçindekiler", dl: "PDF İndir", prev: "Geri", next: "İleri" },
+                ui: { toc: "Bölümler", dl: "İndir", prev: "Geri", next: "İleri" },
                 titles: ["Ajanlığın Doğuşu", "Koordinasyon Mimarileri", "Anlamsal Protokoller", "Stratejik Ayrıştırma", "Bilişsel Döngü", "İşbirlikçi Akıl Yürütme", "İnsan Maestro", "Topluluk Güvenliği", "Üretken Estetik", "Uç Nokta Ajanlığı", "Programlama Sonrası"],
-                filler: "Statik komutlardan ajan niyetine geçiş tıp kı bir orkestra şefinin yönetimine benzer. Her ajan kendi uzmanlık alanında bir virtüöz gibi hareket eder. Bu süreç insan zekasını mekanik görevlerden özgürleştirir."
+                filler: "Statik komutlardan ajan niyetine geçiş tıp kı bir orkestra şefinin yönetimine benzer. Her ajan kendi uzmanlık alanında bir virtüöz gibi hareket eder. Bu süreç insan zekasını mekanik görevlerden özgürleştirir. Maestro hedefi belirlerken makine yürütmeyi yönetir. Orkestradaki her ajan topluluğa benzersiz bir uzmanlık getirir. Zekanın işbirlikçi ve uyarlanabilir olduğu bir gelecek inşa ediyoruz. Bu değişim yeni iletişim ve koordinasyon protokolleri gerektirir. Dayanıklılık merkezi olmayan karar verme yoluyla sağlanır. Bilişsel döngü sürekli öğrenme ve hizalamaya izin verir. Stratejik yapay zeka ulusal teknolojik egemenliğin temel taşıdır."
             },
             fa: {
-                pdf: "pdf/The Agentic Symphony -Persian.pdf",
                 cover: "images/coverpersian.png",
-                ui: { toc: "فهرست مطالب", dl: "دانلود رایگان", prev: "قبلی", next: "بعدی" },
+                ui: { toc: "فهرست مطالب", dl: "دانلود", prev: "قبلی", next: "بعدی" },
                 titles: ["پیدایش عاملیت", "معماری‌های هماهنگی", "پروتکل‌های معنایی", "تجزیه استراتژیک", "حلقه شناختی", "استدلال مشارکتی", "رهبر ارکستر انسانی", "امنیت در گروه", "زیبایی‌شناسی مولد", "عاملیت لبه", "عصر پسابرنامه‌نویسی"],
-                filler: "گذار از دستورات ایستا به قصد عاملی تغییری بنیادین در درک ما از هوش است. ما در حال ارکستره کردن سمفونی‌هایی هستیم که در آن هر عامل به عنوان یک نوازنده متخصص عمل می‌کند. این آغاز رهایی خلاقیت انسان است."
+                filler: "گذار از دستورات ایستا به قصد عاملی تغییری بنیادین در درک ما از هوش است. ما در حال ارکستره کردن سمفونی‌هایی هستیم که در آن هر عامل به عنوان یک نوازنده متخصص عمل می‌کند. این آغاز رهایی خلاقیت انسان از تکرارهای فنی است. نقش رهبر ارکستر تعیین هدف است در حالی که ماشین اجرا را مدیریت می‌کند. هر عامل در ارکستر تخصص منحصر به فردی را به گروه می‌آورد. ما در حال ساخت آینده‌ای هستیم که در آن هوش مشارکتی و تطبیق‌پذیر است. این تغییر نیازمند پروتکل‌های جدید ارتباطی و هماهنگی است. تاب‌آوری از طریق تصمیم‌گیری غیرمتمرکز حاصل می‌شود. حلقه شناختی اجازه یادگیری و تراز مداوم را می‌دهد. هوش مصنوعی استراتژیک سنگ‌بنای حاکمیت تکنولوژیک ملی است."
             }
         };
 
@@ -223,24 +224,22 @@
                 document.body.classList.toggle('rtl', isRTL);
                 document.body.classList.toggle('lang-fa', isRTL);
                 
-                // Sidebar Setup
+                // Sidebar UI
                 document.getElementById('sidebar').classList.toggle('text-right', isRTL);
                 document.getElementById('toc-header').innerText = d.ui.toc;
-                document.getElementById('dl-text').innerText = d.ui.dl;
-                document.getElementById('dl-link').href = d.pdf;
                 document.getElementById('prev-text').innerText = d.ui.prev;
                 document.getElementById('next-text').innerText = d.ui.next;
                 
-                // Layout Adjustments
+                // Chapter Meta alignment
                 const meta = document.getElementById('chapter-meta');
                 meta.classList.toggle('space-x-reverse', isRTL);
                 
-                // Cover Image (Fade animation)
+                // Cover Image (From /images as requested)
                 const cImg = document.getElementById('cover-img');
                 cImg.style.opacity = 0;
                 setTimeout(() => { cImg.src = d.cover; cImg.style.opacity = 1; }, 200);
 
-                // Language Buttons UI
+                // Buttons
                 ['en', 'tr', 'fa'].forEach(k => {
                     const btn = document.getElementById(`btn-${k}`);
                     btn.className = k === l ? 'flex-1 py-1.5 text-[10px] font-bold rounded bg-blue-600 text-white shadow-sm' : 'flex-1 py-1.5 text-[10px] font-bold rounded text-slate-500 hover:bg-slate-100';
@@ -249,41 +248,37 @@
                 this.render();
                 this.renderTOC();
                 
-                // Hide player for Persian
                 if(l === 'fa') audio.hide();
+                else audio.showWidget();
             },
             render: function() {
                 const d = db[this.lang];
                 const title = d.titles[this.idx];
                 
-                // Stop audio on content change
-                audio.stop();
-
-                // Chapter Header Logic
+                // Chapter Number
                 const numEl = document.getElementById('chapter-num');
-                if (this.lang === 'fa') {
-                    numEl.innerText = `${this.idx + 1}`; // Just English digits for Persian
-                } else {
-                    const chWord = (this.lang === 'tr' ? 'Bölüm ' : 'Chapter ');
-                    numEl.innerText = chWord + (this.idx + 1);
-                }
+                if (this.lang === 'fa') numEl.innerText = `${this.idx + 1}`;
+                else numEl.innerText = (this.lang === 'tr' ? 'Bölüm ' : 'Chapter ') + (this.idx + 1);
 
                 document.getElementById('chapter-title').innerText = title;
                 
-                // Generate Rich Content (5 Paragraphs, 15 Sentences each)
+                // FULL TEXT GENERATION (11 chapters, 5 paragraphs, 10 sentences each)
                 let html = "";
                 for(let i=0; i<5; i++) {
-                    let p = `<strong>Part ${i+1}:</strong> `;
-                    for(let j=0; j<15; j++) p += d.filler + " ";
-                    html += `<p>${p}</p>`;
+                    let pContent = `<strong>Part ${i+1}:</strong> `;
+                    for(let j=0; j<10; j++) {
+                        pContent += d.filler + " ";
+                    }
+                    html += `<p class="book-p">${pContent}</p>`;
                 }
                 document.getElementById('text-body').innerHTML = html;
 
-                // Navigation State
+                // Nav State
                 document.getElementById('prev-btn').disabled = this.idx === 0;
                 document.getElementById('next-btn').disabled = this.idx === 10;
                 
                 document.getElementById('main-container').scrollTo({top:0, behavior: 'auto'});
+                audio.stop();
             },
             renderTOC: function() {
                 const list = document.getElementById('chapter-list');
@@ -291,24 +286,15 @@
                 db[this.lang].titles.forEach((t, i) => {
                     const btn = document.createElement('button');
                     const active = i === this.idx;
-                    btn.className = `w-full text-left px-3 py-2.5 rounded-lg text-xs transition ${active ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-500 hover:bg-slate-50'}`;
+                    btn.className = `w-full text-left px-3 py-2 rounded-lg text-xs transition ${active ? 'bg-blue-50 text-blue-600 font-bold' : 'text-slate-500 hover:bg-slate-50'}`;
                     btn.innerText = `${i+1}. ${t}`;
-                    btn.onclick = () => { 
-                        this.idx = i; 
-                        this.render(); 
-                        this.renderTOC(); 
-                        if(window.innerWidth < 768) ui.toggleSidebar(); 
-                    };
+                    btn.onclick = () => { this.idx = i; this.render(); this.renderTOC(); if(window.innerWidth < 768) ui.toggleSidebar(); };
                     list.appendChild(btn);
                 });
             },
             nav: function(dir) {
                 const next = this.idx + dir;
-                if (next >= 0 && next <= 10) { 
-                    this.idx = next; 
-                    this.render(); 
-                    this.renderTOC(); 
-                }
+                if (next >= 0 && next <= 10) { this.idx = next; this.render(); this.renderTOC(); }
             }
         };
 
@@ -323,15 +309,9 @@
                 load();
             },
             toggle: function() {
-                if (this.synth.speaking && !this.synth.paused) { 
-                    this.synth.pause(); 
-                    this.updateUI(false); 
-                } else if (this.synth.paused) { 
-                    this.synth.resume(); 
-                    this.updateUI(true); 
-                } else { 
-                    this.play(); 
-                }
+                if (this.synth.speaking && !this.synth.paused) { this.synth.pause(); this.updateUI(false); }
+                else if (this.synth.paused) { this.synth.resume(); this.updateUI(true); }
+                else { this.play(); }
             },
             play: function() {
                 if (app.lang === 'fa') return;
@@ -349,7 +329,6 @@
                 };
                 this.synth.speak(this.u);
                 this.updateUI(true);
-                document.getElementById('audio-player').classList.add('active');
             },
             stop: function() { this.synth.cancel(); this.updateUI(false); document.getElementById('audio-progress').style.width = '0%'; },
             speed: function() {
@@ -360,9 +339,10 @@
             },
             updateUI: function(playing) {
                 document.getElementById('play-btn').innerHTML = playing ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play ml-1"></i>';
-                document.getElementById('audio-status').innerText = playing ? "Reading Now" : (this.synth.paused ? "Paused" : "Ready");
+                document.getElementById('audio-status').innerText = playing ? "Reading Chapter..." : (this.synth.paused ? "Paused" : "Listen Chapter");
             },
-            hide: function() { this.stop(); document.getElementById('audio-player').classList.remove('active'); }
+            showWidget: function() { document.getElementById('audio-player').classList.remove('hidden'); },
+            hide: function() { this.stop(); document.getElementById('audio-player').classList.add('hidden'); }
         };
 
         const ui = {
